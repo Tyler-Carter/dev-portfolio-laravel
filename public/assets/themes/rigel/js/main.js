@@ -18,7 +18,7 @@
 
     // Smooth scroll for the navigation menu and links with .scrollto classes
     $(document).on('click', '.nav-menu a, .scrollto', function (e) {
-        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+        if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
             var target = $(this.hash);
             if (target.length) {
                 e.preventDefault();

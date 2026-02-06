@@ -193,7 +193,7 @@ class PortfolioSeeder extends Seeder
                     $dir = 'assets/common/img/meta-image';
                 }
                 $leave_files = array('.gitkeep');
-                
+
                 foreach (glob("$dir/*") as $file) {
                     if (!in_array(basename($file), $leave_files)) {
                         unlink($file);
@@ -220,7 +220,7 @@ class PortfolioSeeder extends Seeder
                         $dir = 'assets/common/img/avatar';
                     }
                     $leave_files = array('.gitkeep');
-                    
+
                     foreach (glob("$dir/*") as $file) {
                         if (!in_array(basename($file), $leave_files)) {
                             unlink($file);
@@ -244,7 +244,7 @@ class PortfolioSeeder extends Seeder
                         $dir = 'assets/common/img/cover';
                     }
                     $leave_files = array('.gitkeep');
-                    
+
                     foreach (glob("$dir/*") as $file) {
                         if (!in_array(basename($file), $leave_files)) {
                             unlink($file);
@@ -269,7 +269,7 @@ class PortfolioSeeder extends Seeder
                     }
 
                     $leave_files = array('.gitkeep');
-                    
+
                     foreach (glob("$dir/*") as $file) {
                         if (!in_array(basename($file), $leave_files)) {
                             unlink($file);
@@ -283,26 +283,26 @@ class PortfolioSeeder extends Seeder
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
-                
+
                 $data = [
-                    'name' => 'John Doe',
-                    'email' => 'johndoe@example.com',
-                    'avatar' => 'assets/common/img/avatar/default.png',
+                    'name' => 'Tyler Carter',
+                    'email' => 'gtc198@gmail.com',
+                    'avatar' => 'assets/common/img/avatar/old_photo.png',
                     'cover' => 'assets/common/img/cover/default.png',
-                    'phone' => '12025550191',
-                    'address' => '1609 Nuzum Court, Cheektowaga, NY 14225',
-                    'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non corporis assumenda maiores. Impedit quia necessitatibus adipisci sit quibusdam aspernatur mollitia, deleniti, id, molestiae a accusantium modi sint expedita aliquam labore.',
-                    'taglines' => ["I am Software Engineer", "I am Web Developer", "I am Full Stack Engineer"],
+                    'phone' => '18587316249',
+                    'address' => '17430 Ambaum Blvd S., Burien, WA 98148',
+                    'description' => 'I’m a data analyst and automation-focused developer based in Seattle. I help teams clean up data, automate reporting, and handle text-heavy workflows using Python, SQL, and practical AI tools. My work focuses on building systems that reduce repetitive work and are meant to be used in production.',
+                    'taglines' => ["Data Analysis.", "Automation.", "Practical AI Support"],
                     'social_links' => [
                         [
                             'title' => 'LinkedIn',
                             'iconClass' => 'fab fa-linkedin-in',
-                            'link' => 'https://www.linkedin.com'
+                            'link' => 'https://www.linkedin.com/in/tyler-carter-info'
                         ],
                         [
                             'title' => 'Github',
                             'iconClass' => 'fab fa-github',
-                            'link' => 'https://github.com'
+                            'link' => 'https://github.com/Tyler-Carter'
                         ],
                         [
                             'title' => 'Twitter',
@@ -312,7 +312,7 @@ class PortfolioSeeder extends Seeder
                         [
                             'title' => 'Mail',
                             'iconClass' => 'far fa-envelope',
-                            'link' => 'mailto:johndoe@example.com'
+                            'link' => 'mailto:gtc198@gmail.com'
                         ],
                     ],
                     'seederCV' => 'assets/common/cv/default.pdf',
@@ -350,37 +350,37 @@ class PortfolioSeeder extends Seeder
             //skill table seed
             try {
                 $data = [
-                    'name' => 'Laravel',
+                    'name' => 'Python',
                     'proficiency' => '100'
                 ];
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'PHP',
+                    'name' => 'SQL',
                     'proficiency' => '100'
                 ];
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'JavaScript',
-                    'proficiency' => '95'
+                    'name' => 'Analytics',
+                    'proficiency' => '100'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Java',
+                    'proficiency' => '100'
                 ];
                 $skill->store($data);
 
                 $data = [
                     'name' => 'React.js',
-                    'proficiency' => '95'
-                ];
-                $skill->store($data);
-
-                $data = [
-                    'name' => 'Vue.js',
                     'proficiency' => '90'
                 ];
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'jQuery',
+                    'name' => 'Node.js',
                     'proficiency' => '90'
                 ];
                 $skill->store($data);
@@ -392,13 +392,13 @@ class PortfolioSeeder extends Seeder
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'CSS',
+                    'name' => 'C++',
                     'proficiency' => '90'
                 ];
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'Node.js',
+                    'name' => 'PHP',
                     'proficiency' => '80'
                 ];
                 $skill->store($data);
@@ -444,9 +444,9 @@ class PortfolioSeeder extends Seeder
                     } else {
                         $dir = 'assets/common/img/projects';
                     }
-                    
+
                     $leave_files = array('.gitkeep');
-                    
+
                     foreach (glob("$dir/*") as $file) {
                         if (!in_array(basename($file), $leave_files)) {
                             unlink($file);
@@ -474,7 +474,7 @@ class PortfolioSeeder extends Seeder
                     copy('assets/common/default/projects/demo_project_1_1.png', $dir.'/demo_project_1_1.png');
                     copy('assets/common/default/projects/demo_project_1_2.png', $dir.'/demo_project_1_2.png');
                 }
-                
+
                 $project->store($data);
 
                 $data = [
@@ -510,7 +510,7 @@ class PortfolioSeeder extends Seeder
                         'assets/common/img/projects/demo_project_3_2.png'
                     ]
                 ];
-                
+
                 if (is_dir('public/assets/common/default/projects')) {
                     copy('public/assets/common/default/projects/demo_project_3_1.png', $dir.'/demo_project_3_1.png');
                     copy('public/assets/common/default/projects/demo_project_3_2.png', $dir.'/demo_project_3_2.png');
@@ -518,7 +518,7 @@ class PortfolioSeeder extends Seeder
                     copy('assets/common/default/projects/demo_project_3_1.png', $dir.'/demo_project_3_1.png');
                     copy('assets/common/default/projects/demo_project_3_2.png', $dir.'/demo_project_3_2.png');
                 }
-                
+
                 $project->store($data);
             } catch (\Throwable $th) {
                 Log::error($th->getMessage());

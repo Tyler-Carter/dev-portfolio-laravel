@@ -4,49 +4,6 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
-  --z-accent-color: #0168fa;
-  --blue: #007bff;
-  --indigo: #6610f2;
-  --purple: #6f42c1;
-  --pink: #e83e8c;
-  --red: #dc3545;
-  --orange: #fd7e14;
-  --yellow: #ffc107;
-  --green: #28a745;
-  --teal: #20c997;
-  --cyan: #17a2b8;
-  --white: #fff;
-  --gray: #6c757d;
-  --gray-dark: #343a40;
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --success: #28a745;
-  --info: #17a2b8;
-  --warning: #ffc107;
-  --danger: #dc3545;
-  --light: #f8f9fa;
-  --dark: #343a40;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-
-*,
-*::before,
-*::after {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box; }
-
-html {
-  font-family: sans-serif;
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
@@ -138,19 +95,19 @@ a {
   color: #007bff;
   text-decoration: none;
   background-color: transparent; }
-  a:hover {
+
+a:hover {
     color: #0056b3;
     text-decoration: underline; }
-
 a:not([href]):not([tabindex]) {
   color: inherit;
   text-decoration: none; }
-  a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
+
+a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
     color: inherit;
     text-decoration: none; }
-  a:not([href]):not([tabindex]):focus {
+a:not([href]):not([tabindex]):focus {
     outline: 0; }
-
 pre,
 code,
 kbd,
@@ -176,6 +133,84 @@ svg {
 
 table {
   border-collapse: collapse; }
+
+/* Light mode (default)*/
+:root {
+    --z-accent-color: hsl(12, 85%, 61%);
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #cccccc;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --text: hsl(49, 20%, 11%);
+    --text-muted: hsl(45, 22%, 4%);
+    --border: hsl(12, 85%, 39%);
+    --border-muted: hsl(12, 85%, 32%);
+    --primary: hsl(348, 61%, 39%);
+    --secondary: hsl(338 43% 31%);
+    --success: hsl(347, 100%, 89%);
+    --info: hsl(347, 100%, 75%);
+    --warning: hsl(12, 85%, 68%);
+    --danger: hsl(12, 86%, 54%);
+    --light: hsl(45, 22%, 96%);
+    --dark: hsl(47, 21%, 82%);
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    --z-accent-color: hsl(327, 45%, 19%);
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #cccccc;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --text: hsl(330, 44%, 96%);
+    --text-muted: hsl(328, 44%, 89%);
+    --border: hsl(327, 45%, 27%);
+    --border-muted: hsl(327, 44%, 42%);
+    --primary: hsl(177, 78%, 35%);
+    --secondary: hsl(335, 64%, 58%);
+    --success: hsl(177, 78%, 25%);
+    --info: hsl(177, 78%, 18%);
+    --danger: hsl(335, 64%, 46%);
+    --warning: hsl(335, 63%, 32%);
+    --light: hsl(191, 51%, 19%);
+    --dark: hsl(192, 50%, 4%);
+}
+
+*,
+*::before,
+*::after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 caption {
   padding-top: 0.75rem;
