@@ -1,0 +1,149 @@
+# npm audit report
+
+axios  <=0.29.0
+Severity: high
+Axios Cross-Site Request Forgery Vulnerability - https://github.com/advisories/GHSA-wf5p-g6vw-rhxx
+axios Requests Vulnerable To Possible SSRF and Credential Leakage via Absolute URL - https://github.com/advisories/GHSA-jr5f-v2jv-69x6
+No fix available
+node_modules/axios
+  reddit-image-fetcher  *
+  Depends on vulnerable versions of axios
+  node_modules/reddit-image-fetcher
+
+d3-color  <3.1.0
+Severity: high
+d3-color vulnerable to ReDoS - https://github.com/advisories/GHSA-36jr-mh4h-2g58
+fix available via `npm audit fix`
+node_modules/d3-color
+  @antv/l7-layers  *
+  Depends on vulnerable versions of @antv/l7-core
+  Depends on vulnerable versions of @antv/l7-maps
+  Depends on vulnerable versions of @antv/l7-source
+  Depends on vulnerable versions of @antv/l7-utils
+  Depends on vulnerable versions of d3-color
+  Depends on vulnerable versions of d3-interpolate
+  Depends on vulnerable versions of d3-scale
+  node_modules/@antv/l7-layers
+    @antv/l7  >=2.0.0-alpha.27
+    Depends on vulnerable versions of @antv/l7-component
+    Depends on vulnerable versions of @antv/l7-core
+    Depends on vulnerable versions of @antv/l7-layers
+    Depends on vulnerable versions of @antv/l7-maps
+    Depends on vulnerable versions of @antv/l7-scene
+    Depends on vulnerable versions of @antv/l7-source
+    Depends on vulnerable versions of @antv/l7-utils
+    node_modules/@antv/l7
+      @ant-design/maps  *
+      Depends on vulnerable versions of @antv/l7
+      Depends on vulnerable versions of @antv/l7plot
+      node_modules/@ant-design/maps
+        @ant-design/charts  1.4.3
+        Depends on vulnerable versions of @ant-design/maps
+        node_modules/@ant-design/charts
+      @antv/l7plot  *
+      Depends on vulnerable versions of @antv/l7
+      node_modules/@antv/l7plot
+    @antv/l7-component  >=2.0.15
+    Depends on vulnerable versions of @antv/l7-core
+    Depends on vulnerable versions of @antv/l7-layers
+    Depends on vulnerable versions of @antv/l7-utils
+    node_modules/@antv/l7-component
+      @antv/l7-scene  <=2.0.0-beta.1 || >=2.0.15
+      Depends on vulnerable versions of @antv/l7-component
+      Depends on vulnerable versions of @antv/l7-core
+      Depends on vulnerable versions of @antv/l7-layers
+      Depends on vulnerable versions of @antv/l7-maps
+      Depends on vulnerable versions of @antv/l7-renderer
+      Depends on vulnerable versions of @antv/l7-utils
+      node_modules/@antv/l7-scene
+  @antv/l7-utils  >=2.0.15
+  Depends on vulnerable versions of d3-color
+  node_modules/@antv/l7-utils
+    @antv/l7-core  >=2.0.15
+    Depends on vulnerable versions of @antv/l7-utils
+    node_modules/@antv/l7-core
+      @antv/l7-maps  <=2.0.0-beta.1 || >=2.0.15
+      Depends on vulnerable versions of @antv/l7-core
+      Depends on vulnerable versions of @antv/l7-map
+      Depends on vulnerable versions of @antv/l7-utils
+      node_modules/@antv/l7-maps
+      @antv/l7-renderer  <=2.0.0-beta.1 || >=2.0.15
+      Depends on vulnerable versions of @antv/l7-core
+      Depends on vulnerable versions of @antv/l7-utils
+      node_modules/@antv/l7-renderer
+    @antv/l7-map  *
+    Depends on vulnerable versions of @antv/l7-utils
+    node_modules/@antv/l7-map
+    @antv/l7-source  >=2.0.15
+    Depends on vulnerable versions of @antv/l7-core
+    Depends on vulnerable versions of @antv/l7-utils
+    node_modules/@antv/l7-source
+  d3-interpolate  0.1.3 - 2.0.1
+  Depends on vulnerable versions of d3-color
+  node_modules/@antv/l7-layers/node_modules/d3-interpolate
+  node_modules/d3-scale/node_modules/d3-interpolate
+    d3-scale  0.1.5 - 3.3.0
+    Depends on vulnerable versions of d3-interpolate
+    node_modules/d3-scale
+
+elliptic  *
+Elliptic Uses a Cryptographic Primitive with a Risky Implementation - https://github.com/advisories/GHSA-848j-6mx2-7j84
+No fix available
+node_modules/elliptic
+  browserify-sign  >=2.4.0
+  Depends on vulnerable versions of elliptic
+  node_modules/browserify-sign
+    crypto-browserify  >=3.4.0
+    Depends on vulnerable versions of browserify-sign
+    Depends on vulnerable versions of create-ecdh
+    node_modules/crypto-browserify
+      node-libs-browser  0.4.2 || >=1.0.0
+      Depends on vulnerable versions of crypto-browserify
+      node_modules/node-libs-browser
+        laravel-mix  *
+        Depends on vulnerable versions of node-libs-browser
+        Depends on vulnerable versions of webpack-dev-server
+        node_modules/laravel-mix
+  create-ecdh  *
+  Depends on vulnerable versions of elliptic
+  node_modules/create-ecdh
+
+path-to-regexp  2.0.0 - 3.2.0
+Severity: high
+path-to-regexp outputs backtracking regular expressions - https://github.com/advisories/GHSA-9wv6-86v2-598j
+fix available via `npm audit fix --force`
+Will install @ant-design/pro-layout@7.22.7, which is a breaking change
+node_modules/path-to-regexp
+  @ant-design/pro-layout  <=4.3.2 || 4.7.3 - 7.20.0
+  Depends on vulnerable versions of path-to-regexp
+  node_modules/@ant-design/pro-layout
+
+rollup  <2.79.2
+Severity: high
+DOM Clobbering Gadget found in rollup bundled scripts that leads to XSS - https://github.com/advisories/GHSA-gcx4-mw62-g8wm
+fix available via `npm audit fix`
+node_modules/rollup
+  fmin  <=0.0.2
+  Depends on vulnerable versions of rollup
+  node_modules/fmin
+    @antv/g2plot  2.3.33 - 2.4.35
+    Depends on vulnerable versions of fmin
+    node_modules/@antv/g2plot
+
+webpack-dev-server  <=5.2.0
+Severity: moderate
+webpack-dev-server users' source code may be stolen when they access a malicious web site with non-Chromium based browser - https://github.com/advisories/GHSA-9jgg-88mc-972h
+webpack-dev-server users' source code may be stolen when they access a malicious web site - https://github.com/advisories/GHSA-4v9v-hfq4-rm2v
+No fix available
+node_modules/webpack-dev-server
+
+30 vulnerabilities (5 low, 2 moderate, 23 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues possible (including breaking changes), run:
+  npm audit fix --force
+
+Some issues need review, and may require choosing
+a different dependency.

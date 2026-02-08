@@ -1,0 +1,664 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@ant-design/charts": {
+      "name": "@ant-design/charts",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@ant-design/maps"
+      ],
+      "effects": [],
+      "range": "1.4.3",
+      "nodes": [
+        "node_modules/@ant-design/charts"
+      ],
+      "fixAvailable": true
+    },
+    "@ant-design/maps": {
+      "name": "@ant-design/maps",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7",
+        "@antv/l7plot"
+      ],
+      "effects": [
+        "@ant-design/charts"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@ant-design/maps"
+      ],
+      "fixAvailable": true
+    },
+    "@ant-design/pro-layout": {
+      "name": "@ant-design/pro-layout",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "path-to-regexp"
+      ],
+      "effects": [],
+      "range": "<=4.3.2 || 4.7.3 - 7.20.0",
+      "nodes": [
+        "node_modules/@ant-design/pro-layout"
+      ],
+      "fixAvailable": {
+        "name": "@ant-design/pro-layout",
+        "version": "7.22.7",
+        "isSemVerMajor": true
+      }
+    },
+    "@antv/g2plot": {
+      "name": "@antv/g2plot",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "fmin"
+      ],
+      "effects": [],
+      "range": "2.3.33 - 2.4.35",
+      "nodes": [
+        "node_modules/@antv/g2plot"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7": {
+      "name": "@antv/l7",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-component",
+        "@antv/l7-core",
+        "@antv/l7-layers",
+        "@antv/l7-maps",
+        "@antv/l7-scene",
+        "@antv/l7-source",
+        "@antv/l7-utils"
+      ],
+      "effects": [
+        "@ant-design/maps",
+        "@antv/l7plot"
+      ],
+      "range": ">=2.0.0-alpha.27",
+      "nodes": [
+        "node_modules/@antv/l7"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-component": {
+      "name": "@antv/l7-component",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-core",
+        "@antv/l7-layers",
+        "@antv/l7-utils"
+      ],
+      "effects": [
+        "@antv/l7-scene"
+      ],
+      "range": ">=2.0.15",
+      "nodes": [
+        "node_modules/@antv/l7-component"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-core": {
+      "name": "@antv/l7-core",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-utils"
+      ],
+      "effects": [
+        "@antv/l7-maps",
+        "@antv/l7-renderer"
+      ],
+      "range": ">=2.0.15",
+      "nodes": [
+        "node_modules/@antv/l7-core"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-layers": {
+      "name": "@antv/l7-layers",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-core",
+        "@antv/l7-maps",
+        "@antv/l7-source",
+        "@antv/l7-utils",
+        "d3-color",
+        "d3-interpolate",
+        "d3-scale"
+      ],
+      "effects": [
+        "@antv/l7",
+        "@antv/l7-component",
+        "@antv/l7-scene"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@antv/l7-layers"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-map": {
+      "name": "@antv/l7-map",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-utils"
+      ],
+      "effects": [
+        "@antv/l7-maps"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@antv/l7-map"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-maps": {
+      "name": "@antv/l7-maps",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-core",
+        "@antv/l7-map",
+        "@antv/l7-utils"
+      ],
+      "effects": [
+        "@antv/l7-layers"
+      ],
+      "range": "<=2.0.0-beta.1 || >=2.0.15",
+      "nodes": [
+        "node_modules/@antv/l7-maps"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-renderer": {
+      "name": "@antv/l7-renderer",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-core",
+        "@antv/l7-utils"
+      ],
+      "effects": [
+        "@antv/l7-scene"
+      ],
+      "range": "<=2.0.0-beta.1 || >=2.0.15",
+      "nodes": [
+        "node_modules/@antv/l7-renderer"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-scene": {
+      "name": "@antv/l7-scene",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-component",
+        "@antv/l7-core",
+        "@antv/l7-layers",
+        "@antv/l7-maps",
+        "@antv/l7-renderer",
+        "@antv/l7-utils"
+      ],
+      "effects": [
+        "@antv/l7"
+      ],
+      "range": "<=2.0.0-beta.1 || >=2.0.15",
+      "nodes": [
+        "node_modules/@antv/l7-scene"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-source": {
+      "name": "@antv/l7-source",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7-core",
+        "@antv/l7-utils"
+      ],
+      "effects": [
+        "@antv/l7"
+      ],
+      "range": ">=2.0.15",
+      "nodes": [
+        "node_modules/@antv/l7-source"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7-utils": {
+      "name": "@antv/l7-utils",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "d3-color"
+      ],
+      "effects": [
+        "@antv/l7",
+        "@antv/l7-component",
+        "@antv/l7-core",
+        "@antv/l7-layers",
+        "@antv/l7-map",
+        "@antv/l7-maps",
+        "@antv/l7-renderer",
+        "@antv/l7-scene",
+        "@antv/l7-source"
+      ],
+      "range": ">=2.0.15",
+      "nodes": [
+        "node_modules/@antv/l7-utils"
+      ],
+      "fixAvailable": true
+    },
+    "@antv/l7plot": {
+      "name": "@antv/l7plot",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@antv/l7"
+      ],
+      "effects": [
+        "@ant-design/maps"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@antv/l7plot"
+      ],
+      "fixAvailable": true
+    },
+    "axios": {
+      "name": "axios",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1097679,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios Cross-Site Request Forgery Vulnerability",
+          "url": "https://github.com/advisories/GHSA-wf5p-g6vw-rhxx",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-352"
+          ],
+          "cvss": {
+            "score": 6.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+          },
+          "range": ">=0.8.1 <0.28.0"
+        },
+        {
+          "source": 1111034,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "axios Requests Vulnerable To Possible SSRF and Credential Leakage via Absolute URL",
+          "url": "https://github.com/advisories/GHSA-jr5f-v2jv-69x6",
+          "severity": "high",
+          "cwe": [
+            "CWE-918"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<0.30.0"
+        }
+      ],
+      "effects": [
+        "reddit-image-fetcher"
+      ],
+      "range": "<=0.29.0",
+      "nodes": [
+        "node_modules/axios"
+      ],
+      "fixAvailable": false
+    },
+    "browserify-sign": {
+      "name": "browserify-sign",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "elliptic"
+      ],
+      "effects": [
+        "crypto-browserify"
+      ],
+      "range": ">=2.4.0",
+      "nodes": [
+        "node_modules/browserify-sign"
+      ],
+      "fixAvailable": false
+    },
+    "create-ecdh": {
+      "name": "create-ecdh",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "elliptic"
+      ],
+      "effects": [
+        "crypto-browserify"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/create-ecdh"
+      ],
+      "fixAvailable": false
+    },
+    "crypto-browserify": {
+      "name": "crypto-browserify",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "browserify-sign",
+        "create-ecdh"
+      ],
+      "effects": [
+        "node-libs-browser"
+      ],
+      "range": ">=3.4.0",
+      "nodes": [
+        "node_modules/crypto-browserify"
+      ],
+      "fixAvailable": false
+    },
+    "d3-color": {
+      "name": "d3-color",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1088594,
+          "name": "d3-color",
+          "dependency": "d3-color",
+          "title": "d3-color vulnerable to ReDoS",
+          "url": "https://github.com/advisories/GHSA-36jr-mh4h-2g58",
+          "severity": "high",
+          "cwe": [
+            "CWE-400"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<3.1.0"
+        }
+      ],
+      "effects": [
+        "@antv/l7-layers",
+        "@antv/l7-utils",
+        "d3-interpolate"
+      ],
+      "range": "<3.1.0",
+      "nodes": [
+        "node_modules/d3-color"
+      ],
+      "fixAvailable": true
+    },
+    "d3-interpolate": {
+      "name": "d3-interpolate",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "d3-color"
+      ],
+      "effects": [
+        "@antv/l7-layers",
+        "d3-scale"
+      ],
+      "range": "0.1.3 - 2.0.1",
+      "nodes": [
+        "node_modules/@antv/l7-layers/node_modules/d3-interpolate",
+        "node_modules/d3-scale/node_modules/d3-interpolate"
+      ],
+      "fixAvailable": true
+    },
+    "d3-scale": {
+      "name": "d3-scale",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "d3-interpolate"
+      ],
+      "effects": [],
+      "range": "0.1.5 - 3.3.0",
+      "nodes": [
+        "node_modules/d3-scale"
+      ],
+      "fixAvailable": true
+    },
+    "elliptic": {
+      "name": "elliptic",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1112030,
+          "name": "elliptic",
+          "dependency": "elliptic",
+          "title": "Elliptic Uses a Cryptographic Primitive with a Risky Implementation",
+          "url": "https://github.com/advisories/GHSA-848j-6mx2-7j84",
+          "severity": "low",
+          "cwe": [
+            "CWE-1240"
+          ],
+          "cvss": {
+            "score": 5.6,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L"
+          },
+          "range": "<=6.6.1"
+        }
+      ],
+      "effects": [
+        "browserify-sign",
+        "create-ecdh"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/elliptic"
+      ],
+      "fixAvailable": false
+    },
+    "fmin": {
+      "name": "fmin",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "rollup"
+      ],
+      "effects": [
+        "@antv/g2plot"
+      ],
+      "range": "<=0.0.2",
+      "nodes": [
+        "node_modules/fmin"
+      ],
+      "fixAvailable": true
+    },
+    "laravel-mix": {
+      "name": "laravel-mix",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "node-libs-browser",
+        "webpack-dev-server"
+      ],
+      "effects": [],
+      "range": "*",
+      "nodes": [
+        "node_modules/laravel-mix"
+      ],
+      "fixAvailable": false
+    },
+    "node-libs-browser": {
+      "name": "node-libs-browser",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "crypto-browserify"
+      ],
+      "effects": [
+        "laravel-mix"
+      ],
+      "range": "0.4.2 || >=1.0.0",
+      "nodes": [
+        "node_modules/node-libs-browser"
+      ],
+      "fixAvailable": false
+    },
+    "path-to-regexp": {
+      "name": "path-to-regexp",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1101848,
+          "name": "path-to-regexp",
+          "dependency": "path-to-regexp",
+          "title": "path-to-regexp outputs backtracking regular expressions",
+          "url": "https://github.com/advisories/GHSA-9wv6-86v2-598j",
+          "severity": "high",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=2.0.0 <3.3.0"
+        }
+      ],
+      "effects": [
+        "@ant-design/pro-layout"
+      ],
+      "range": "2.0.0 - 3.2.0",
+      "nodes": [
+        "node_modules/path-to-regexp"
+      ],
+      "fixAvailable": {
+        "name": "@ant-design/pro-layout",
+        "version": "7.22.7",
+        "isSemVerMajor": true
+      }
+    },
+    "reddit-image-fetcher": {
+      "name": "reddit-image-fetcher",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "axios"
+      ],
+      "effects": [],
+      "range": "*",
+      "nodes": [
+        "node_modules/reddit-image-fetcher"
+      ],
+      "fixAvailable": false
+    },
+    "rollup": {
+      "name": "rollup",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1099757,
+          "name": "rollup",
+          "dependency": "rollup",
+          "title": "DOM Clobbering Gadget found in rollup bundled scripts that leads to XSS",
+          "url": "https://github.com/advisories/GHSA-gcx4-mw62-g8wm",
+          "severity": "high",
+          "cwe": [
+            "CWE-79"
+          ],
+          "cvss": {
+            "score": 6.4,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H"
+          },
+          "range": "<2.79.2"
+        }
+      ],
+      "effects": [
+        "fmin"
+      ],
+      "range": "<2.79.2",
+      "nodes": [
+        "node_modules/rollup"
+      ],
+      "fixAvailable": true
+    },
+    "webpack-dev-server": {
+      "name": "webpack-dev-server",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1108429,
+          "name": "webpack-dev-server",
+          "dependency": "webpack-dev-server",
+          "title": "webpack-dev-server users' source code may be stolen when they access a malicious web site with non-Chromium based browser",
+          "url": "https://github.com/advisories/GHSA-9jgg-88mc-972h",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-346"
+          ],
+          "cvss": {
+            "score": 6.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=5.2.0"
+        },
+        {
+          "source": 1108430,
+          "name": "webpack-dev-server",
+          "dependency": "webpack-dev-server",
+          "title": "webpack-dev-server users' source code may be stolen when they access a malicious web site",
+          "url": "https://github.com/advisories/GHSA-4v9v-hfq4-rm2v",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-749"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+          },
+          "range": "<=5.2.0"
+        }
+      ],
+      "effects": [
+        "laravel-mix"
+      ],
+      "range": "<=5.2.0",
+      "nodes": [
+        "node_modules/webpack-dev-server"
+      ],
+      "fixAvailable": false
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 5,
+      "moderate": 2,
+      "high": 23,
+      "critical": 0,
+      "total": 30
+    },
+    "dependencies": {
+      "prod": 912,
+      "dev": 638,
+      "optional": 11,
+      "peer": 1,
+      "peerOptional": 0,
+      "total": 1560
+    }
+  }
+}
