@@ -2,7 +2,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: docker/dockerfiles/Dockerfile.prod
+      dockerfile: dockerfiles/Dockerfile.prod
     image: dev-portfolio-laravel:prod
     restart: unless-stopped
     environment:
