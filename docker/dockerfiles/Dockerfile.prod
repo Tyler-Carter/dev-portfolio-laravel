@@ -37,16 +37,28 @@ FROM composer:2 AS vendor
 
 WORKDIR /app
 
-# Install PHP deps first (better caching)
+# Copy composer manifests first for cache
 COPY composer.json composer.lock ./
+
+# Copy the minimum Laravel app files needed so artisan exists and can bootstrap
+COPY artisan ./artisan
+COPY bootstrap ./bootstrap
+COPY config ./config
+COPY app ./app
+COPY routes ./routes
+COPY database ./database
+COPY resources/lang ./resources/lang
+COPY public ./public
+
+# If your app uses these at boot time, include them too (safe, small):
+COPY composer.* ./
+COPY .env.example ./.env.example
+
 RUN composer install \
   --no-dev \
   --no-interaction \
   --prefer-dist \
   --optimize-autoloader
-
-# If your composer scripts rely on app source, copy it; otherwise omit.
-# COPY . ./
 
 
 ############################
