@@ -1,0 +1,101 @@
+# docker/Dockerfile.prod
+#
+# Production image (php-fpm only) for a Laravel + Mix app.
+# - Builds JS/CSS assets with Node 20
+# - Installs PHP deps with Composer (no-dev)
+# - Runs php-fpm (no web server in this container)
+
+############################
+# 1) Frontend build stage  #
+############################
+FROM node:20-bullseye AS assets
+
+WORKDIR /app
+
+# Install node deps first (better layer caching)
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Copy only what Mix needs (adjust if your build needs more)
+COPY resources ./resources
+COPY webpack.mix.js ./
+COPY babel.config.* ./
+COPY .babelrc* ./
+COPY postcss.config.* ./
+COPY tailwind.config.* ./
+COPY vite.config.* ./
+COPY public ./public
+
+# Build production assets (laravel-mix)
+RUN npm run production
+
+
+############################
+# 2) Composer deps stage   #
+############################
+FROM composer:2 AS vendor
+
+WORKDIR /app
+
+# Install PHP deps first (better caching)
+COPY composer.json composer.lock ./
+RUN composer install \
+  --no-dev \
+  --no-interaction \
+  --prefer-dist \
+  --optimize-autoloader
+
+# If your composer scripts rely on app source, copy it; otherwise omit.
+# COPY . ./
+
+
+############################
+# 3) Runtime stage (FPM)   #
+############################
+FROM php:8.3-fpm-bullseye AS runtime
+
+# System deps for common Laravel needs + PHP extensions
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    unzip \
+    libzip-dev \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    libicu-dev \
+    libonig-dev \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install -j$(nproc) \
+    pdo_mysql \
+    mbstring \
+    zip \
+    intl \
+    gd \
+    bcmath \
+    opcache \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www/html
+
+# Copy app source (everything except what's in .dockerignore)
+COPY . .
+
+# Copy Composer vendor/ from vendor stage
+COPY --from=vendor /app/vendor ./vendor
+
+# Copy built public assets from assets stage
+COPY --from=assets /app/public ./public
+
+# Ensure runtime-writable dirs are writable
+RUN mkdir -p storage bootstrap/cache \
+  && chown -R www-data:www-data storage bootstrap/cache \
+  && chmod -R 775 storage bootstrap/cache
+
+# Optional: enable prod PHP settings/opcache via custom ini
+# COPY docker/php-fpm.conf.d/99-overrides.ini /usr/local/etc/php/conf.d/99-overrides.ini
+
+USER www-data
+
+EXPOSE 9000
+
+CMD ["php-fpm"]
