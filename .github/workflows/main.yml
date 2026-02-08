@@ -21,6 +21,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -42,7 +43,7 @@ jobs:
 
           DB_CONNECTION=${{ secrets.DB_CONNECTION }}
           DB_HOST=${{ secrets.DB_HOST }}
-          DB_PORT=mysql
+          DB_PORT=${{ secrets.DB_PORT || env.CI_DB_PORT }}
           DB_DATABASE=${{ secrets.DB_DATABASE }}
           DB_USERNAME=${{ secrets.DB_USERNAME }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD }}
@@ -60,21 +61,60 @@ jobs:
           php-version: "8.3"
           tools: composer:v2
 
-      - name: Install PHP deps
+      - name: Install PHP dependencies (creates vendor/)
         run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Ensure Laravel writable dirs (CI)
+        shell: bash
+        run: |
+          mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
+          chmod -R a+rwX storage bootstrap/cache
 
       - name: Start dev stack
         run: npm run docker:dev:up
 
       - name: Dev HTTP smoke check
+        shell: bash
         run: |
+          set -e
           for i in {1..30}; do
-            if curl -fsS http://localhost:${{ env.CI_APP_PORT }} >/dev/null; then
+            code="$(curl -sS -o /tmp/dev_body.txt -w '%{http_code}' http://localhost:${{ env.CI_APP_PORT }} || true)"
+            if [ "$code" = "200" ]; then
+              echo "Dev OK (HTTP 200)"
               exit 0
             fi
+            echo "Attempt $i: HTTP $code"
             sleep 2
           done
+
+          echo "Final response body:"
+          head -200 /tmp/dev_body.txt || true
           exit 1
+
+      - name: Dump dev logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          echo "=== docker compose ps ==="
+          docker compose --env-file ./.env -f docker/docker-compose/dev-docker-compose.yml ps || true
+
+          echo "=== docker compose logs (last 300 lines) ==="
+          docker compose --env-file ./.env -f docker/docker-compose/dev-docker-compose.yml logs --tail=300 || true
+
+          echo "=== laravel.log (if present) ==="
+          test -f storage/logs/laravel.log && tail -300 storage/logs/laravel.log || true
 
       - name: Stop dev stack
         if: always()
@@ -91,6 +131,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -111,7 +152,7 @@ jobs:
           APP_URL=${{ secrets.APP_URL }}
 
           DB_CONNECTION=${{ secrets.DB_CONNECTION }}
-          DB_HOST=db
+          DB_HOST=${{ secrets.DB_HOST }}
           DB_PORT=${{ secrets.DB_PORT }}
           DB_DATABASE=${{ secrets.DB_DATABASE }}
           DB_USERNAME=${{ secrets.DB_USERNAME }}
@@ -145,6 +186,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
+      - name: Ensure Laravel writable dirs (CI)
+        shell: bash
+        run: |
+          mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
+          chmod -R a+rwX storage bootstrap/cache
+
       - name: Build prod image
         run: npm run docker:prod:build
 
@@ -152,16 +199,35 @@ jobs:
         run: npm run docker:prod:up
 
       - name: Prod HTTP smoke check
+        shell: bash
         run: |
+          set -e
           for i in {1..30}; do
-            if curl -fsS http://localhost:${{ env.CI_APP_PORT }} >/dev/null; then
-              echo "Prod stack is respond on :${{ env.CI_APP_PORT }}"
+            code="$(curl -sS -o /tmp/prod_body.txt -w '%{http_code}' http://localhost:${{ env.CI_APP_PORT }} || true)"
+            if [ "$code" = "200" ]; then
+              echo "Prod OK (HTTP 200)"
               exit 0
             fi
+            echo "Attempt $i: HTTP $code"
             sleep 2
           done
-          echo "Prod stack did not respond in time"
+
+          echo "Final response body:"
+          head -200 /tmp/prod_body.txt || true
           exit 1
+
+      - name: Dump prod logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          echo "=== docker compose ps ==="
+          docker compose --env-file ./.env -f docker/docker-compose/prod-docker-compose.yml ps || true
+
+          echo "=== docker compose logs (last 300 lines) ==="
+          docker compose --env-file ./.env -f docker/docker-compose/prod-docker-compose.yml logs --tail=300 || true
+
+          echo "=== laravel.log (if present) ==="
+          test -f storage/logs/laravel.log && tail -300 storage/logs/laravel.log || true
 
       - name: Stop prod stack
         if: always()

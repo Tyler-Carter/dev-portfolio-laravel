@@ -52,7 +52,6 @@ COPY public ./public
 
 # If your app uses these at boot time, include them too (safe, small):
 COPY composer.* ./
-COPY .env.example ./.env.example
 
 RUN composer install \
   --no-dev \
