@@ -13,13 +13,11 @@ services:
     environment:
       WWWUSER: '${WWWUSER}'
       LARAVEL_SAIL: 1
-      XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-      XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
       DB_CONNECTION: mysql
-      DB_HOST: mysql
+      DB_HOST: '${DB_HOST}'
       DB_PORT: "3306"
-      DB_DATABASE: '${DB_DATABASE}'
-      DB_USERNAME: '${DB_USERNAME}'
+      DB_DATABASE: '${DB_DATABASE:-portfolio_db}'
+      DB_USERNAME: '${DB_USERNAME:-portfolio_admin}'
       DB_PASSWORD: '${DB_PASSWORD}'
     volumes:
       - '../../:/var/www/html'
@@ -41,10 +39,10 @@ services:
       WWWUSER: '${WWWUSER}'
       LARAVEL_SAIL: 1
       DB_CONNECTION: mysql
-      DB_HOST: mysql
-      DB_PORT: "3306"
-      DB_DATABASE: '${DB_DATABASE}'
-      DB_USERNAME: '${DB_USERNAME}'
+      DB_HOST: '${DB_HOST}'
+      DB_PORT: '${DB_PORT}'
+      DB_DATABASE: '${DB_DATABASE:-portfolio_db}'
+      DB_USERNAME: '${DB_USERNAME:-portfolio_admin}'
       DB_PASSWORD: '${DB_PASSWORD}'
     networks:
       - sail
@@ -59,7 +57,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - '../../:/var/www/html'
-    command: sh -lc "if [ ! -d node_modules ]; then npm ci; fi; npm run watch-poll"
+    command: sh -lc "if [ ! -d node_modules ]; then npm ci; fi; npm run watch"
     networks:
       - sail
     depends_on:
@@ -70,10 +68,10 @@ services:
     ports:
       - '${FORWARD_DB_PORT:-3307}:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MARIADB_ROOT_PASSWORD: '${DB_ROOT_PASSWORD}'
+      MARIADB_DATABASE: '${DB_DATABASE:-portfolio_db}'
+      MARIADB_USER: '${DB_USERNAME:-portfolio_admin}'
+      MARIADB_PASSWORD: '${DB_PASSWORD}'
     volumes:
       - 'sailmysql:/var/lib/mysql'
     networks:
