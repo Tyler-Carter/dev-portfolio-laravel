@@ -110,6 +110,24 @@
                 @endif
             </ul>
         </nav><!-- .nav-menu -->
+
+        <!-- Theme toggle (presentational only) -->
+        <div class="nav-footer" aria-label="Theme toggle">
+            <div class="theme-toggle">
+                <i id="themeToggleIcon" class="bx bx-moon theme-toggle__icon" aria-hidden="true"></i>
+                <span class="theme-toggle__label">Theme</span>
+                <button
+                    id="themeToggle"
+                    type="button"
+                    class="ant-switch"
+                    role="switch"
+                    aria-checked="false"
+                    aria-label="Toggle theme"
+                >
+                    <span class="ant-switch-handle"></span>
+                </button>
+            </div>
+        </div>
     </header><!-- End Header -->
 
     <!-- ======= hero Section ======= -->

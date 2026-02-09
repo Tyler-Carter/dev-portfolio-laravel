@@ -1,9 +1,9 @@
 /**
-* Template Name: MyResume - v2.1.0
-* Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+ * Template Name: MyResume - v2.1.0
+ * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+ * Author: BootstrapMade.com
+ * License: https://bootstrapmade.com/license/
+ */
 !(function ($) {
     "use strict";
 
@@ -150,3 +150,18 @@
     });
 
 })(jQuery);
+
+
+// Theme toggle (visual only; no theme logic yet)
+document.addEventListener("click", (e) => {
+    const btn = e.target.closest("#themeToggle");
+    if (!btn) return;
+    const checked = btn.classList.toggle("ant-switch-checked");
+    btn.setAttribute("aria-checked", checked ? "true" : "false");
+
+    const icon = document.getElementById("themeToggleIcon");
+    if (icon) {
+        icon.classList.toggle("bx-sun", checked);
+        icon.classList.toggle("bx-moon", !checked);
+    }
+});
