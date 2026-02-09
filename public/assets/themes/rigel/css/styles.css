@@ -125,6 +125,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (min-width: 992px) {
+    /*
+      Lock the desktop sidebar width so hover-expanding nav items don't reflow
+      the header/footer (theme toggle) layout. Hover expansions will overflow
+      to the right instead of resizing the header.
+    */
+    #header {
+        width: 86px; /* 56px button + 15px padding (L) + 15px padding (R) */
+        overflow: visible;
+        box-sizing: border-box;
+    }
+
     #main {
         margin-left: 100px;
     }
@@ -196,6 +207,26 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-menu a:hover span, .nav-menu li:hover > a span {
     display: block;
+}
+
+/*
+  Desktop: allow nav items to "fly out" without changing the sidebar width.
+  This prevents the theme toggle/footer from shifting when hovering nav items.
+*/
+@media (min-width: 992px) {
+    .nav-menu {
+        width: 56px;
+    }
+
+    .nav-menu > ul > li {
+        width: 56px;
+    }
+
+    /* Override the global hover rule (width: 100%) on desktop */
+    .nav-menu a:hover,
+    .nav-menu li:hover > a {
+        width: 125px; /* flyout width for label; adjust if you want wider/narrower */
+    }
 }
 
 /* Mobile Navigation */
