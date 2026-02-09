@@ -6,11 +6,6 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 ======================================================== -->
 
-@php
-    $accentColor = $portfolioConfig['accentColor'];
-    $accentColorRGB = Utils::getRgbValue($accentColor);
-@endphp
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,32 +39,43 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/themes/rigel/css/custom.css') }}" rel="stylesheet">
     <style>
         :root {
-          --z-accent-color: {{$accentColor}};
-        }
-        .bg-primary, .progress-bar {
-            background-color: {{$accentColor.' !important'}};
-        }
+          /* Base surfaces */
+          --color-bg-page: #F2F2F2;
+          --color-bg-surface: #FFFFFF;
+          --color-bg-alt: #F2F2F2;
 
-        a {
-            color: {{$accentColor}};
-        }
+          /* Text */
+          --color-text-primary: #0F0F0F;
+          --color-text-secondary: #444444;
+          --color-text-inverse: #F2F2F2;
 
-        a:hover {
-            color: rgba({{$accentColorRGB}}, .7);
-        }
+          /* Brand / structural */
+          --color-brand-primary: #044040;
+          --color-brand-secondary: #591C21;
 
-        .form-control:focus {
-            border-color: rgba({{$accentColorRGB}}, .5) !important;
-            box-shadow: none;
-        }
+          /* Actions / emphasis */
+          --color-action-primary: #D92525;
+          --color-action-accent: #8C1F28;
 
-        .text-primary {
-            color: {{$accentColor.' !important'}};
+          /* States */
+          --color-border: rgba(4, 64, 64, 0.25);
+          --color-focus-ring: #044040;
+          --color-hover-surface: rgba(4, 64, 64, 0.08);
+
+          /* Utility */
+          --color-divider: rgba(4, 64, 64, 0.15);
+          --color-muted-surface: rgba(89, 28, 33, 0.05);
+
+          /* Back-compat for template tokens */
+          --z-accent-color: var(--color-brand-primary);
+          --z-link: var(--color-brand-primary);
+          --z-link-hover: var(--color-action-accent);
         }
     </style>
+    <link href="{{ asset('assets/themes/rigel/css/custom.css') }}?v={{ filemtime(public_path('assets/themes/rigel/css/custom.css')) }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -254,9 +260,9 @@
                     <h2>Projects</h2>
                 </div>
                 <div>
-                    <div 
-                        id="react-project-root" 
-                        data-accentcolor="{{$accentColor}}" 
+                    <div
+                        id="react-project-root"
+                        data-accentcolor="#044040"
                         data-demomode="{{$demoMode}}"
                     />
                     <div class="mb-5"></div>
@@ -421,7 +427,7 @@
     <script>
         $(function() {
             $('.lazy').lazy();
-            
+
             @if($about->taglines)
                 if ($('.typed').length) {
                     new Typed('.typed', {
@@ -494,7 +500,7 @@
                     });
                 }
             });
-            
+
             function showNotification(message = 'Something went wrong', type = 'error', sticky = false) {
                 iziToast.show({
                     title: '',
@@ -509,7 +515,7 @@
                     messageColor: type === 'success' ? '#00ffb8' : '#ffafb4',
                     icon: type === 'success' ? 'fas fa-check' : 'fas fa-times-circle'
                 });
-            }    
+            }
         });
     </script>
     @if (!empty($portfolioConfig['script']['footer']) && $portfolioConfig['script']['footer'] != '')
