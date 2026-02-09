@@ -152,16 +152,80 @@
 })(jQuery);
 
 
-// Theme toggle (visual only; no theme logic yet)
-document.addEventListener("click", (e) => {
-    const btn = e.target.closest("#themeToggle");
-    if (!btn) return;
-    const checked = btn.classList.toggle("ant-switch-checked");
-    btn.setAttribute("aria-checked", checked ? "true" : "false");
+// Theme toggle (light/dark) — applies CSS variable theme in real time
+(() => {
+    const STORAGE_KEY = "theme"; // "light" | "dark"
+    const ROOT = document.documentElement;
 
-    const icon = document.getElementById("themeToggleIcon");
-    if (icon) {
-        icon.classList.toggle("bx-sun", checked);
-        icon.classList.toggle("bx-moon", !checked);
+    function setSwitchUI(isDark) {
+        const btn = document.getElementById("themeToggle");
+        if (!btn) return;
+
+        // Visual state
+        btn.classList.toggle("ant-switch-checked", isDark);
+        btn.setAttribute("aria-checked", isDark ? "true" : "false");
+
+        // Ensure basic switch semantics (safe even if already present)
+        if (!btn.hasAttribute("role")) btn.setAttribute("role", "switch");
+        if (!btn.hasAttribute("tabindex")) btn.setAttribute("tabindex", "0");
+
+        // Optional icon flip (moon when dark, sun when light)
+        const icon = document.getElementById("themeToggleIcon");
+        if (icon) {
+            icon.classList.toggle("bx-moon", isDark);
+            icon.classList.toggle("bx-sun", !isDark);
+        }
     }
-});
+
+    function applyTheme(theme, { persist = true } = {}) {
+        const isDark = theme === "dark";
+
+        // CSS hook: styles.css defines [data-theme="dark"] variable overrides
+        if (isDark) ROOT.setAttribute("data-theme", "dark");
+        else ROOT.removeAttribute("data-theme");
+
+        setSwitchUI(isDark);
+
+        if (persist) {
+            try { localStorage.setItem(STORAGE_KEY, theme); } catch (_) {}
+        }
+    }
+
+    function getInitialTheme() {
+        try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored === "dark" || stored === "light") return stored;
+        } catch (_) {}
+
+        // Fall back to system preference
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+    }
+
+    function toggleTheme() {
+        const isDark = ROOT.getAttribute("data-theme") === "dark";
+        applyTheme(isDark ? "light" : "dark");
+    }
+
+    // Init on DOM ready (in case the toggle is rendered late in the page)
+    document.addEventListener("DOMContentLoaded", () => {
+        applyTheme(getInitialTheme(), { persist: false });
+
+        // Click + keyboard accessibility
+        document.addEventListener("click", (e) => {
+            const btn = e.target.closest("#themeToggle");
+            if (!btn) return;
+            toggleTheme();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            const btn = e.target.closest && e.target.closest("#themeToggle");
+            if (!btn) return;
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+    });
+})();

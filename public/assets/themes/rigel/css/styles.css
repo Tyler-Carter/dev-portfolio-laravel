@@ -36,11 +36,80 @@
     --color-divider: rgba(4, 64, 64, 0.15);
     --color-muted-surface: rgba(89, 28, 33, 0.05);
 
+    /* Theme-specific helpers */
+    --color-hero-overlay: rgba(255, 255, 255, 0.8);
+    --color-portfolio-wrap-bg: rgba(69, 80, 91, 0.8);
+    --color-portfolio-hover-overlay: rgba(255, 255, 255, 0.7);
+    --color-portfolio-corner: #d7dce1;
+    --color-avatar-ring: #fff;
+    --color-loading-track: #eee;
+
+    --shadow-elev-1: 0px 5px 25px 0px rgb(0 0 0 / 11%);
+    --shadow-elev-hover: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
+
+    --color-focus-shadow: rgba(4, 64, 64, 0.25);
+
     /* Back-compat for existing template tokens */
     --z-accent-color: var(--color-brand-primary);
     --z-link: var(--color-brand-primary);
     --z-link-hover: var(--color-action-accent);
 }
+
+/*--------------------------------------------------------------
+# Dark Theme (foundation – not applied yet)
+--------------------------------------------------------------*/
+/*
+  Future usage:
+  Toggle a class or data attribute on <html> or <body>, e.g.
+  <html data-theme="dark"> … </html>
+*/
+[data-theme="dark"] {
+    /* Base surfaces */
+    --color-bg-page: #0F1416;          /* near-black derived from #233A40 */
+    --color-bg-surface: #162126;       /* dark surface, readable contrast */
+    --color-bg-alt: #1E2D33;           /* elevated/alt surface */
+
+    /* Text */
+    --color-text-primary: #F2F5F6;     /* near-white for dark backgrounds */
+    --color-text-secondary: #B8C3C7;   /* muted light text */
+    --color-text-inverse: #0F1416;     /* for text on light/bright surfaces */
+
+    /* Brand / structural */
+    --color-brand-primary: #233A40;    /* deep blue-teal anchor */
+    --color-brand-secondary: #21260E;  /* olive structural accent */
+
+    /* Actions / emphasis */
+    --color-action-primary: #F2385A;   /* primary CTA / emphasis */
+    --color-action-accent: #F24949;    /* secondary action / alert */
+
+    /* States */
+    --color-border: rgba(242, 245, 246, 0.18); /* subtle light border on dark */
+    --color-focus-ring: #F2385A;       /* visible focus using primary action */
+    --color-hover-surface: rgba(35, 58, 64, 0.6); /* hover tint from brand */
+
+    /* Utility */
+    --color-divider: rgba(242, 245, 246, 0.12);
+    --color-muted-surface: #121A1D;    /* very low-contrast surface */
+
+    /* Theme-specific helpers */
+    --color-hero-overlay: rgba(15, 20, 22, 0.65);
+    --color-portfolio-wrap-bg: rgba(15, 20, 22, 0.65);
+    --color-portfolio-hover-overlay: rgba(22, 33, 38, 0.75);
+    --color-portfolio-corner: rgba(242, 245, 246, 0.35);
+    --color-avatar-ring: rgba(242, 245, 246, 0.22);
+    --color-loading-track: rgba(242, 245, 246, 0.2);
+
+    --shadow-elev-1: 0px 5px 25px 0px rgb(0 0 0 / 35%);
+    --shadow-elev-hover: 0px 0 35px 0 rgba(0, 0, 0, 0.35);
+
+    --color-focus-shadow: rgba(242, 56, 90, 0.35);
+
+    /* Back-compat */
+    --z-accent-color: var(--color-brand-primary);
+    --z-link: var(--color-brand-primary);
+    --z-link-hover: var(--color-action-accent);
+}
+
 
 body {
     background: var(--color-bg-page);
@@ -282,7 +351,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #hero:before {
     content: "";
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--color-hero-overlay);
     position: absolute;
     bottom: 0;
     top: 0;
@@ -593,12 +662,12 @@ section {
     position: relative;
     overflow: hidden;
     z-index: 1;
-    background: rgba(69, 80, 91, 0.8);
+    background: var(--color-portfolio-wrap-bg);
 }
 
 .portfolio .portfolio-wrap::before {
     content: "";
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--color-portfolio-hover-overlay);
     position: absolute;
     left: 30px;
     right: 30px;
@@ -633,8 +702,8 @@ section {
     position: absolute;
     top: 35px;
     left: 35px;
-    border-top: 3px solid #d7dce1;
-    border-left: 3px solid #d7dce1;
+    border-top: 3px solid var(--color-portfolio-corner);
+    border-left: 3px solid var(--color-portfolio-corner);
     transition: all 0.5s ease 0s;
     z-index: 9994;
 }
@@ -647,8 +716,8 @@ section {
     position: absolute;
     bottom: 35px;
     right: 35px;
-    border-bottom: 3px solid #d7dce1;
-    border-right: 3px solid #d7dce1;
+    border-bottom: 3px solid var(--color-portfolio-corner);
+    border-right: 3px solid var(--color-portfolio-corner);
     transition: all 0.5s ease 0s;
     z-index: 9994;
 }
@@ -719,8 +788,8 @@ section {
     padding: 70px 20px 80px 20px;
     transition: all ease-in-out 0.3s;
     background: var(--color-bg-surface);
-    -webkit-box-shadow: 0px 5px 25px 0px rgb(0 0 0 / 11%);
-    box-shadow: 0px 5px 25px 0px rgb(0 0 0 / 11%);
+    -webkit-box-shadow: var(--shadow-elev-1);
+    box-shadow: var(--shadow-elev-1);
 }
 
 .services .icon-box .icon {
@@ -771,7 +840,7 @@ section {
 
 .services .icon-box:hover {
     border-color: #fff;
-    box-shadow: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-elev-hover);
 }
 
 .services .iconbox-blue i {
@@ -868,7 +937,7 @@ section {
 .testimonials .testimonial-item .testimonial-img {
     width: 120px;
     border-radius: 50%;
-    border: 4px solid #fff;
+    border: 4px solid var(--color-avatar-ring);
     margin: 0 auto;
 }
 
@@ -1032,7 +1101,7 @@ section {
     height: 24px;
     margin: 0 10px -6px 0;
     border: 3px solid var(--color-brand-primary);
-    border-top-color: #eee;
+    border-top-color: var(--color-loading-track);
     -webkit-animation: animate-loading 1s linear infinite;
     animation: animate-loading 1s linear infinite;
 }
@@ -1308,7 +1377,7 @@ section {
 }
 
 .ant-switch:focus-visible {
-    box-shadow: 0 0 0 3px rgba(4, 64, 64, 0.25); /* aligns with --color-border tone */
+    box-shadow: 0 0 0 3px var(--color-focus-shadow);
 }
 
 /* Checked state (JS toggles .ant-switch-checked) */
