@@ -15,8 +15,8 @@ services:
       DB_DATABASE: "${DB_DATABASE:-portfolio_db}"
       DB_USERNAME: "${DB_USERNAME:-portfolio_admin}"
       DB_PASSWORD: "${DB_PASSWORD}"
-    expose:
-      - "9000"
+    ports:
+      - "${APP_PORT:-80}:8000"
     depends_on:
       db:
         condition: service_healthy

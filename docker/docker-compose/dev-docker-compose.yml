@@ -59,7 +59,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - '../../:/var/www/html'
-    command: sh -lc "npm install && npm run watch-poll"
+    command: sh -lc "if [ ! -d node_modules ]; then npm ci; fi; npm run watch-poll"
     networks:
       - sail
     depends_on:

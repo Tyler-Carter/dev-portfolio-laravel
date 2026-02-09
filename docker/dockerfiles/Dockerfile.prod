@@ -27,7 +27,7 @@ COPY vite.config.* ./
 COPY public ./public
 
 # Build production assets (laravel-mix)
-RUN npm run production
+RUN npm run docker:prod:build
 
 
 ############################
@@ -107,6 +107,6 @@ RUN mkdir -p storage bootstrap/cache \
 
 USER www-data
 
-EXPOSE 9000
+EXPOSE 8000
 
-CMD ["php-fpm"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
