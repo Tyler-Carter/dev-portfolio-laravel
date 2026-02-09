@@ -27,7 +27,9 @@ COPY vite.config.* ./
 COPY public ./public
 
 # Build production assets (laravel-mix)
-RUN npm run docker:prod:build
+# IMPORTANT: do not run any script that shells out to `docker` from inside a Docker build.
+# Use your real asset build script here (commonly: `npm run build` for Vite, or `npm run prod` for Mix).
+RUN npm run production
 
 
 ############################
