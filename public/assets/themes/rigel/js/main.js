@@ -4,6 +4,7 @@
  * Author: BootstrapMade.com
  * License: https://bootstrapmade.com/license/
  */
+
 !(function ($) {
     "use strict";
 
@@ -150,6 +151,58 @@
     });
 
 })(jQuery);
+/*
+let styleElement = document.createElement('style');
+document.head.appendChild(styleElement);
+
+let activeButton = null;
+let currentTheme = 'light'; // Assumes light is the default theme
+
+const injectCSS = (css) => {
+    styleElement.textContent = css;
+};
+
+const SWITCH = (button, animation) => {
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    button.setAttribute("aria-pressed", newTheme === 'dark');
+    document.documentElement.className = newTheme;
+    currentTheme = newTheme;
+    injectCSS(animation.css);
+};
+
+const updateButtonStates = () => {
+    document.querySelectorAll('.theme-toggle').forEach(btn => {
+        if (btn === activeButton) {
+            btn.disabled = false;
+            btn.setAttribute("aria-pressed", currentTheme === 'dark');
+        } else {
+            btn.disabled = currentTheme === 'dark';
+            btn.setAttribute("aria-pressed", "false");
+        }
+    });
+};
+
+const TOGGLE_THEME = (button, animation) => {
+    if (activeButton && activeButton !== button) {
+        return; // If there's an active button and it's not this one, do nothing.
+    }
+
+    if (!document.startViewTransition) {
+        SWITCH(button, animation);
+        activeButton = currentTheme === 'dark' ? button : null;
+        updateButtonStates();
+    } else {
+        const transition = document.startViewTransition(() => {
+            SWITCH(button, animation);
+            activeButton = currentTheme === 'dark' ? button : null;
+        });
+        transition.finished.then(() => {
+            updateButtonStates();
+        });
+    }
+};
+*/
+
 
 
 // Theme toggle (light/dark) — applies CSS variable theme in real time
@@ -229,3 +282,4 @@
         });
     });
 })();
+

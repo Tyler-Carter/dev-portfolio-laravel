@@ -10,18 +10,18 @@
 --------------------------------------------------------------*/
 :root {
     /* Base surfaces */
-    --color-bg-page: #F2F2F2;
-    --color-bg-surface: #FFFFFF;
-    --color-bg-alt: #F2F2F2;
+    --color-bg-page: #eaeaea;
+    --color-bg-surface: #f7f7f7;
+    --color-bg-alt: #f5f5f5;
 
     /* Text */
     --color-text-primary: #0F0F0F;
     --color-text-secondary: #444444;
-    --color-text-inverse: #F2F2F2;
+    --color-text-inverse: #f5f5f5;
 
     /* Brand / structural */
-    --color-brand-primary: #044040;   /* Deep teal */
-    --color-brand-secondary: #591C21; /* Dark maroon */
+    --color-brand-primary: #F2385A;
+    --color-brand-secondary: #8C3041;
 
     /* Actions / emphasis */
     --color-action-primary: #D92525;  /* Primary CTA / destructive */
@@ -75,8 +75,8 @@
     --color-text-inverse: #0F1416;     /* for text on light/bright surfaces */
 
     /* Brand / structural */
-    --color-brand-primary: #233A40;    /* deep blue-teal anchor */
-    --color-brand-secondary: #21260E;  /* olive structural accent */
+    --color-brand-primary: #F2385A;    /* deep blue-teal anchor */
+    --color-brand-secondary: #8C3041;  /* olive structural accent */
 
     /* Actions / emphasis */
     --color-action-primary: #F2385A;   /* primary CTA / emphasis */
@@ -582,13 +582,14 @@ section {
     font-size: 18px;
     font-weight: 600;
     text-transform: uppercase;
-    color: var(--z-accent-color);
+    color: var(--color-text-secondary);
     margin-bottom: 10px;
 }
 
 .resume .resume-item h5 {
     font-size: 16px;
     background: var(--color-bg-alt);
+    color: var(--color-text-secondary);
     padding: 5px 15px;
     display: inline-block;
     font-weight: 600;
@@ -1389,4 +1390,108 @@ section {
 .ant-switch.ant-switch-checked .ant-switch-handle {
     left: 22px;
     background: #fff;
+}
+
+/*--------------------------------------------------------------
+# Theme enforcement (ensure Bootstrap/other defaults can't force light surfaces)
+--------------------------------------------------------------*/
+html, body {
+    background-color: var(--color-bg-page) !important;
+    color: var(--color-text-primary);
+}
+
+#main {
+    background-color: var(--color-bg-page) !important;
+}
+
+/* Default sections should inherit the page background */
+section {
+    background-color: transparent;
+}
+
+/* Sections explicitly marked as alternate background */
+.section-bg,
+section.section-bg {
+    background-color: var(--color-bg-alt) !important;
+}
+
+/* Common Bootstrap utility classes that can force light surfaces */
+.bg-white,
+.bg-light,
+.btn-light {
+    background-color: var(--color-bg-alt) !important;
+    color: var(--color-text-primary) !important;
+    border-color: var(--color-border) !important;
+}
+
+/* Cards / panels frequently used by templates */
+.card,
+.list-group-item,
+.modal-content,
+.dropdown-menu {
+    background-color: var(--color-bg-surface) !important;
+    color: var(--color-text-primary) !important;
+    border-color: var(--color-border) !important;
+}
+
+
+/*--------------------------------------------------------------
+# Theme typography & utility bridges (Bootstrap + template text helpers)
+--------------------------------------------------------------*/
+.text-muted,
+.text-secondary,
+.text-body-secondary,
+.small,
+small {
+    color: var(--color-text-secondary) !important;
+}
+
+.text-body,
+.text-dark {
+    color: var(--color-text-primary) !important;
+}
+
+/* Ensure section content inherits readable text colors */
+section,
+section p,
+section li,
+section span,
+section label {
+    color: var(--color-text-inverse);
+}
+
+section p,
+section li,
+section .content p,
+section .content li {
+    color: var(--color-text-secondary);
+}
+a
+section strong,
+section b {
+    color: var(--color-text-primary);
+}
+
+/* Links inside dark surfaces */
+section a {
+    color: var(--z-link);
+}
+section a:hover {
+    color: var(--z-link-hover);
+}
+
+/* Form controls (if present) */
+.form-control,
+.form-select,
+input,
+textarea,
+select {
+    background-color: var(--color-bg-surface) !important;
+    color: var(--color-text-primary) !important;
+    border-color: var(--color-border) !important;
+}
+.form-control::placeholder,
+input::placeholder,
+textarea::placeholder {
+    color: var(--color-text-secondary) !important;
 }

@@ -39,41 +39,6 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
-    <style>
-        :root {
-          /* Base surfaces */
-          --color-bg-page: #F2F2F2;
-          --color-bg-surface: #FFFFFF;
-          --color-bg-alt: #F2F2F2;
-
-          /* Text */
-          --color-text-primary: #0F0F0F;
-          --color-text-secondary: #444444;
-          --color-text-inverse: #F2F2F2;
-
-          /* Brand / structural */
-          --color-brand-primary: #044040;
-          --color-brand-secondary: #591C21;
-
-          /* Actions / emphasis */
-          --color-action-primary: #D92525;
-          --color-action-accent: #8C1F28;
-
-          /* States */
-          --color-border: rgba(4, 64, 64, 0.25);
-          --color-focus-ring: #044040;
-          --color-hover-surface: rgba(4, 64, 64, 0.08);
-
-          /* Utility */
-          --color-divider: rgba(4, 64, 64, 0.15);
-          --color-muted-surface: rgba(89, 28, 33, 0.05);
-
-          /* Back-compat for template tokens */
-          --z-accent-color: var(--color-brand-primary);
-          --z-link: var(--color-brand-primary);
-          --z-link-hover: var(--color-action-accent);
-        }
-    </style>
     <link href="{{ asset('assets/themes/rigel/css/custom.css') }}?v={{ filemtime(public_path('assets/themes/rigel/css/custom.css')) }}" rel="stylesheet">
 
 </head>
@@ -111,7 +76,7 @@
             </ul>
         </nav><!-- .nav-menu -->
 
-        <!-- Theme toggle (presentational only) -->
+        <!-- Theme toggle -->
         <div class="nav-footer" aria-label="Theme toggle">
             <div class="theme-toggle">
                 <i id="themeToggleIcon" class="bx bx-moon theme-toggle__icon" aria-hidden="true"></i>
