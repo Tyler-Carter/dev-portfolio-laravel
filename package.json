@@ -6,8 +6,7 @@
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production",
+        "prod": "mix --production",
 
         "docker:seed:db": "php artisan migrate --seed",
         "docker:dev:build": "docker compose --env-file ./.env -f docker/docker-compose/dev-docker-compose.yml build",
