@@ -1,9 +1,9 @@
 # docker/Dockerfile.prod
 #
-# Production image (php-fpm only) for a Laravel + Mix app.
+# Production image (php-fpm) for a Laravel app.
 # - Builds JS/CSS assets with Node 20
 # - Installs PHP deps with Composer (no-dev)
-# - Runs php-fpm (no web server in this container)
+# - Runs php-fpm for production use (expects reverse proxy)
 
 ############################
 # 1) Frontend build stage  #
@@ -12,24 +12,23 @@ FROM node:20-bullseye AS assets
 
 WORKDIR /app
 
-# Install node deps first (better layer caching)
+# Install node deps first (layer caching)
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy only what Mix needs (adjust if your build needs more)
+# Copy frontend sources
+COPY .eslintrc* ./
 COPY resources ./resources
+COPY public ./public
 COPY webpack.mix.js ./
-COPY babel.config.* ./
-COPY .babelrc* ./
+COPY vite.config.* ./
 COPY postcss.config.* ./
 COPY tailwind.config.* ./
-COPY vite.config.* ./
-COPY public ./public
+COPY babel.config.* ./
+COPY .babelrc* ./
 
-# Build production assets (laravel-mix)
-# IMPORTANT: do not run any script that shells out to `docker` from inside a Docker build.
-# Use your real asset build script here (commonly: `npm run build` for Vite, or `npm run prod` for Mix).
-RUN npm run prod
+# Build assets (Mix or Vite)
+RUN if [ -f vite.config.js ] || [ -f vite.config.ts ]; then npm run build; else npm run prod; fi
 
 
 ############################
@@ -39,35 +38,34 @@ FROM composer:2 AS vendor
 
 WORKDIR /app
 
-# Copy composer manifests first for cache
+# Copy manifests first for caching
 COPY composer.json composer.lock ./
 
-# Copy the minimum Laravel app files needed so artisan exists and can bootstrap
+# Copy app files required for autoload optimization
 COPY artisan ./artisan
+COPY app ./app
 COPY bootstrap ./bootstrap
 COPY config ./config
-COPY app ./app
 COPY routes ./routes
 COPY database ./database
 COPY resources/lang ./resources/lang
 COPY public ./public
 
-# If your app uses these at boot time, include them too (safe, small):
-COPY composer.* ./
-
+# Install production dependencies
 RUN composer install \
   --no-dev \
   --no-interaction \
   --prefer-dist \
-  --optimize-autoloader
+  --optimize-autoloader \
+  --classmap-authoritative
 
 
 ############################
-# 3) Runtime stage (FPM)   #
+# 3) Runtime stage (php-fpm)
 ############################
 FROM php:8.3-fpm-bullseye AS runtime
 
-# System deps for common Laravel needs + PHP extensions
+# OS deps + PHP extensions for Laravel + Postgres
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     unzip \
@@ -77,9 +75,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libfreetype6-dev \
     libicu-dev \
     libonig-dev \
+    libpq-dev \
+    ca-certificates \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install -j$(nproc) \
-    pdo_mysql \
+    pdo_pgsql \
     mbstring \
     zip \
     intl \
@@ -90,25 +90,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /var/www/html
 
-# Copy app source (everything except what's in .dockerignore)
+# Copy full application source
 COPY . .
 
-# Copy Composer vendor/ from vendor stage
+# Copy vendor deps from composer stage
 COPY --from=vendor /app/vendor ./vendor
 
-# Copy built public assets from assets stage
+# Copy built frontend assets
 COPY --from=assets /app/public ./public
 
-# Ensure runtime-writable dirs are writable
-RUN mkdir -p storage bootstrap/cache \
-  && chown -R www-data:www-data storage bootstrap/cache \
-  && chmod -R 775 storage bootstrap/cache
-
-# Optional: enable prod PHP settings/opcache via custom ini
-# COPY docker/php-fpm.conf.d/99-overrides.ini /usr/local/etc/php/conf.d/99-overrides.ini
+# Permissions for Laravel runtime dirs
+RUN mkdir -p storage bootstrap/cache /var/www/.config storage/framework/views storage/framework/cache storage/framework/sessions storage/framework/cache/data \
+  && chown -R www-data:www-data storage bootstrap/cache /var/www/.config \
+  && chmod -R 775 storage bootstrap/cache /var/www/.config
 
 USER www-data
 
-EXPOSE 8000
+EXPOSE 9000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php-fpm"]
