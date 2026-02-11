@@ -16,7 +16,6 @@ use Config;
 use Illuminate\Database\Seeder;
 use Log;
 use Str;
-use Faker\Factory as Faker;
 
 class PortfolioSeeder extends Seeder
 {
@@ -28,8 +27,6 @@ class PortfolioSeeder extends Seeder
     public function run()
     {
         try {
-            $faker = Faker::create();
-
             $portfolioConfig = resolve(PortfolioConfigInterface::class);
             $about = resolve(AboutInterface::class);
             $education = resolve(EducationInterface::class);
@@ -45,8 +42,8 @@ class PortfolioSeeder extends Seeder
             //template
             $data = [
                 'setting_key' => CoreConstants::PORTFOLIO_CONFIG__TEMPLATE,
-                'setting_value' => 'procyon',
-                'default_value' => 'procyon',
+                'setting_value' => 'rigel',
+                'default_value' => 'rigel',
             ];
             $portfolioConfig->insertOrUpdate($data);
 
@@ -292,7 +289,7 @@ class PortfolioSeeder extends Seeder
                     'phone' => '18587316249',
                     'address' => '17430 Ambaum Blvd S., Burien, WA 98148',
                     'description' => 'I’m a data analyst and automation-focused developer based in Seattle. I help teams clean up data, automate reporting, and handle text-heavy workflows using Python, SQL, and practical AI tools. My work focuses on building systems that reduce repetitive work and are meant to be used in production.',
-                    'taglines' => ["Data Analysis.", "Automation.", "Practical AI Support"],
+                    'taglines' => ["Data Analysis.", "Automation.", "Practical AI Support."],
                     'social_links' => [
                         [
                             'title' => 'LinkedIn',
@@ -322,20 +319,20 @@ class PortfolioSeeder extends Seeder
                 //education table seed
                 try {
                     $data = [
-                        'institution' => 'University of Colorado Boulder',
-                        'period' => '2006-2010',
+                        'institution' => 'Western Governor\'s University',
+                        'period' => '2023-2027',
                         'degree' => 'Bachelor of Science',
                         'cgpa' => '4.00 out of 4.00',
                         'department' => 'Computer Science & Engineering',
-                        'thesis' => 'Web Development Track'
+                        'thesis' => 'AI Engineering'
                     ];
                     $education->store($data);
 
                     $data = [
-                        'institution' => 'James Buchanan High School',
-                        'period' => '2002-2006',
-                        'degree' => 'Technology Magnet Program',
-                        'cgpa' => '3.75 out of 4.00',
+                        'institution' => 'Edgewood High School',
+                        'period' => '2000-2004',
+                        'degree' => null,
+                        'cgpa' => null,
                         'department' => null,
                         'thesis' => null
                     ];
@@ -356,25 +353,43 @@ class PortfolioSeeder extends Seeder
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'SQL',
-                    'proficiency' => '100'
-                ];
-                $skill->store($data);
-
-                $data = [
-                    'name' => 'Analytics',
-                    'proficiency' => '100'
-                ];
-                $skill->store($data);
-
-                $data = [
                     'name' => 'Java',
                     'proficiency' => '100'
                 ];
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'React.js',
+                    'name' => 'TypeScript',
+                    'proficiency' => '100'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'JavaScript',
+                    'proficiency' => '100'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'C++',
+                    'proficiency' => '95'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'LangSmith',
+                    'proficiency' => '90'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Docker',
+                    'proficiency' => '95'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'SQL',
                     'proficiency' => '90'
                 ];
                 $skill->store($data);
@@ -392,16 +407,41 @@ class PortfolioSeeder extends Seeder
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'C++',
+                    'name' => 'PyTorch',
                     'proficiency' => '90'
                 ];
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'PHP',
-                    'proficiency' => '80'
+                    'name' => 'TensorFlow & Keras',
+                    'proficiency' => '90'
                 ];
                 $skill->store($data);
+
+                $data = [
+                    'name' => 'Scikit-learn',
+                    'proficiency' => '90'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Hugging Face',
+                    'proficiency' => '90'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'n8n',
+                    'proficiency' => '90'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'CrewAI',
+                    'proficiency' => '85'
+                ];
+                $skill->store($data);
+
             } catch (\Throwable $th) {
                 Log::error($th->getMessage());
             }
@@ -409,28 +449,108 @@ class PortfolioSeeder extends Seeder
             //experience table seed
             try {
                 $data = [
-                    'company' => 'ABC LIMITED',
-                    'period' => '2019-Present',
-                    'position' => 'Senior Software Engineer',
-                    'details' => $faker->text()
+                    'company' => 'Mobile Integration WorkGroup, Inc',
+                    'period' => '2022-2024',
+                    'position' => 'Technical Project Manager',
+                    'details' => 'Analyzed operational implementation for Database Vault and drove data-backed
+                                  process improvements, resulting in 50% less manual effort.
+
+                                  Created Python/SQL-based KPI reporting dashboard for DB Vault project
+                                  implementation used in sprint planning.
+
+                                  Created the technical manuals of procedures for all operations regarding DB
+                                  Vault.
+
+                                  Created a Python script to track the contractual and maintenance costs of DB
+                                  Vault reducing the manual effort required by 75%.
+
+                                  Directed cross-functional teams in the adoption of agile methodologies and
+                                  usage of JIRA, integrating the efforts of over 50 professionals across 8 teams.'
                 ];
                 $experience->store($data);
 
                 $data = [
-                    'company' => 'ABC LIMITED',
-                    'period' => '2017-2019',
-                    'position' => 'Software Engineer',
-                    'details' => $faker->text()
+                    'company' => 'Cloudix Inc.',
+                    'period' => '2020-2022',
+                    'position' => 'Operations Program Manager',
+                    'details' => 'Worked cross-functionally with software development teams to scope and
+                                  implement scalable data collection processes for unstructured data which
+                                  eliminated manual data intake requirements.
+
+                                  Built and implemented data analytics processes used to surface themes/
+                                  trends for ISV partners which resulted in a 75% reduction in time required to
+                                  analyze the data.
+
+                                  Developed and implemented KPIs/measurable goals to gauge success for
+                                  the ISV Insights program.
+
+                                  Owned working with business stakeholders, sales teams, and software
+                                  developers to customize data views based on end user personas.
+
+                                  Built a semi-automated process to understand themes and trends being
+                                  experienced by Microsoft ISV partners based on unstructured text data.
+
+                                  Implemented partner outreach initiative to better understand Microsoft
+                                  partner pain points.
+
+                                  Subject Matter Expert and point of contact for external/internal teams to
+                                  utilize for understanding the ISV (Independent Software Vendor) Connect
+                                  program.'
                 ];
                 $experience->store($data);
 
                 $data = [
-                    'company' => 'XYZ LIMITED',
-                    'period' => '2015-2017',
-                    'position' => 'Junior Software Engineer',
-                    'details' => $faker->text()
+                    'company' => 'Amazon',
+                    'period' => '2018 - 2020',
+                    'position' => 'Program Manager II',
+                    'details' => 'Managed daily operations for Amazon Lockers resulting in 5x program
+                                  growth in 2016.
+
+                                  Facilitated end to end launches of over a thousand new Lockers deployed in
+                                  2017 globally.
+
+                                  Coordinated 6 stakeholder groups to improve the deployment workflow and
+                                  automate tracking reports.
+
+                                  Sole owner of triage and escalation management from customer service and
+                                  business development teams.
+
+                                  Owned relationship with Whole Foods business development and
+                                  responsible for 8.64% of the yearly goal which exceeded my personal goal of
+                                  5% and helped drive the team to successfully meeting our yearly goal.
+
+                                  Built inputs for new financial models to identify expansions in existing sites
+                                  and new geographical locations.
+
+                                  Built requirements for technical operations reporting metrics for Leadership
+                                  WBR.
+
+                                  Reduced 3rd party vendor response time by 1 business day for customer
+                                  power issues.
+
+                                  Ensured governmental compliance of program’s Locker installations.
+
+                                  Partnered with vendors and contractors to meet construction timelines and
+                                  running installation operations.'
                 ];
                 $experience->store($data);
+
+                $data = [
+                    'company' => 'Amazon',
+                    'period' => '2014 - 2018',
+                    'position' => 'Program Manager',
+                    'details' => 'Oversaw carrier performance for OnTrac, UPS, Lasership, USPS, and
+                                  Amazon Logistics.
+
+                                  Managed and resolved delivery defects for the Amazon Locker program.
+
+                                  Defined operating procedures for carrier escalation resolutions.
+
+                                  Built and managed metrics and reporting for leadership regarding carriers
+                                  and customer service.'
+                ];
+                $experience->store($data);
+
             } catch (\Throwable $th) {
                 Log::error($th->getMessage());
             }
@@ -457,10 +577,12 @@ class PortfolioSeeder extends Seeder
                 }
 
                 $data = [
-                    'title' => 'Demo Project 1',
+                    'title' => 'RAG Issue Triage Copilot',
                     'categories' => ['personal'],
-                    'link' => 'https://www.youtube.com',
-                    'details' => $faker->text(),
+                    'link' => 'https://github.com/Chive7840/rag_issue_triage',
+                    'details' => 'A data + automation pipeline that uses retrieval-augmented techniques to triage, classify, and act on large volumes of GitHub and Jira issue text.
+                                  This project demonstrates how AI-assisted text analysis can be applied to real operational workflows. Which can reduce manual review while remaining
+                                  transparent, repeatable, and human-approved.',
                     'seeder_thumbnail' => 'assets/common/img/projects/demo_project_1_1.png',
                     'seeder_images' => [
                         'assets/common/img/projects/demo_project_1_1.png',
@@ -481,7 +603,7 @@ class PortfolioSeeder extends Seeder
                     'title' => 'Demo Project 2',
                     'categories' => ['professional'],
                     'link' => 'https://www.facebook.com',
-                    'details' => $faker->text(),
+                    'details' => '',
                     'seeder_thumbnail' => 'assets/common/img/projects/demo_project_2_1.png',
                     'seeder_images' => [
                         'assets/common/img/projects/demo_project_2_1.png',
@@ -503,7 +625,7 @@ class PortfolioSeeder extends Seeder
                     'title' => 'Demo Project 3',
                     'categories' => ['personal'],
                     'link' => 'https://www.linkedin.com',
-                    'details' => $faker->text(),
+                    'details' => '',
                     'seeder_thumbnail' => 'assets/common/img/projects/demo_project_3_1.png',
                     'seeder_images' => [
                         'assets/common/img/projects/demo_project_3_1.png',
@@ -527,23 +649,26 @@ class PortfolioSeeder extends Seeder
             //service table seed
             try {
                 $data = [
-                    'title' => 'Web Development',
+                    'title' => 'Full Stack Development',
                     'icon' => 'fas fa-code',
-                    'details' => $faker->text()
+                    'details' => 'I develop full stack applications that move products from idea to production, covering UI, backend services, and data integration.
+                    I prioritize practical engineering decisions, performance, and long-term maintainability over throwaway prototypes.'
                 ];
                 $service->store($data);
 
                 $data = [
-                    'title' => 'UI/UX Design',
+                    'title' => 'Data Analysis',
                     'icon' => 'fas fa-basketball-ball',
-                    'details' => $faker->text()
+                    'details' => 'I build analytics systems that ingest, clean, and model data to produce repeatable, trustworthy insights.
+                    This includes KPI definition, automated reporting, and analysis pipelines that reduce manual effort and improve decision velocity.'
                 ];
                 $service->store($data);
 
                 $data = [
-                    'title' => 'Security',
+                    'title' => 'AI Integration/Automation',
                     'icon' => 'fas fa-shield-alt',
-                    'details' => $faker->text()
+                    'details' => 'I build and deploy AI-powered automation for tasks such as text classification, triage, summarization, and workflow routing.
+                    The focus is on reliable system integration, monitoring, and guardrails so AI features operate as dependable components of production systems.'
                 ];
                 $service->store($data);
             } catch (\Throwable $th) {
@@ -554,14 +679,14 @@ class PortfolioSeeder extends Seeder
                 //visitor table seed
                 foreach (range(1, 72) as $index) {
                     $data = [
-                        'tracking_id' => Str::random(30),
-                        'is_new' => $faker->boolean(60),
-                        'ip' => $faker->ipv4,
-                        'is_desktop' => $faker->boolean(70),
-                        'browser' => $faker->randomElement(['Chrome', 'Firefox', 'Safari', 'Opera', 'Edge']),
-                        'platform' => $faker->randomElement(['Windows', 'OS X', 'AndroidOS', 'iOS']),
-                        'location' => $faker->country,
-                        'created_at' => $faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+                        'tracking_id' => null
+                        'is_new' => null,
+                        'ip' => null,
+                        'is_desktop' => null,
+                        'browser' => null,
+                        'platform' => null,
+                        'location' => null,
+                        'created_at' => dateTimeThisMonth()->format('Y-m-d H:i:s'),
                     ];
                     $visitor->forceStore($data);
                 }
@@ -573,12 +698,12 @@ class PortfolioSeeder extends Seeder
                 //message table seed
                 foreach (range(1, 17) as $index) {
                     $data = [
-                        'name' => $faker->name(),
-                        'email' => $faker->email,
-                        'subject' => $faker->sentence(),
-                        'body' => $faker->text(),
-                        'replied' => $faker->boolean(60),
-                        'created_at' => $faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
+                        'name' => null,
+                        'email' => null,
+                        'subject' => null,
+                        'body' => null,
+                        'replied' => null,
+                        'created_at' => dateTimeThisMonth()->format('Y-m-d H:i:s'),
                     ];
                     $message->store($data);
                 }

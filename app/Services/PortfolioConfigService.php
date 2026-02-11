@@ -153,7 +153,7 @@ class PortfolioConfigService implements PortfolioConfigInterface
                 if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
                     $data['template'] = $result['payload']->setting_value;
                 } else {
-                    $data['template'] = 'procyon';
+                    $data['template'] = 'rigel';
                 }
             }
 
@@ -171,7 +171,7 @@ class PortfolioConfigService implements PortfolioConfigInterface
                 if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
                     $data['googleAnalyticsId'] = $result['payload']->setting_value;
                 } else {
-                    $data['googleAnalyticsId'] = '';
+                    $data['googleAnalyticsId'] = 'G-FC80TMEZZR';
                 }
             }
 
@@ -342,7 +342,7 @@ class PortfolioConfigService implements PortfolioConfigInterface
             $newData['setting_value'] = isset($data['setting_value']) ? $data['setting_value'] : '';
 
             $result = $this->insertOrUpdate($newData);
-            
+
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
                 return [
                     'message' => 'Config is successfully updated',
@@ -420,7 +420,7 @@ class PortfolioConfigService implements PortfolioConfigInterface
                         $extension = $file->extension() ? $file->extension() : 'png';
                         $fileName = Str::random(10). '_'. time() .'.'. $extension;
                         $pathName = 'assets/common/img/meta-image/';
-                        
+
                         if (!file_exists($pathName)) {
                             mkdir($pathName, 0777, true);
                         }
