@@ -1,5 +1,7 @@
 services:
   app:
+    env_file:
+      - ../../.env
     build:
       context: ../..
       dockerfile: docker/dockerfiles/Dockerfile.prod
@@ -17,7 +19,12 @@ services:
       NEON_ENDPOINT_ID: "${NEON_ENDPOINT_ID}"
       DATABASE_URL: "postgresql://${DB_USERNAME}:endpoint=${NEON_ENDPOINT_ID};${DB_PASSWORD}@${DB_HOST}/${DB_DATABASE}?sslmode=require&channel_binding=require"
     ports:
-      - "${APP_PORT:-9000}:9000"
+      - "${PORT:-10000}:10000"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fsS http://localhost:${PORT}/healthz || exit 1" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
     networks:
       - appnet
 
