@@ -24,13 +24,22 @@ jobs:
         run: composer install --no-interaction --prefer-dist --no-progress
 
       - name: Prepare app key for CI runtime
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_ENV: testing
         run: |
-          if [ ! -f .env ]; then
-            if [ -f .env.example ]; then cp .env.example .env; fi
-          fi
-          php artisan key:generate --force
+          true
 
       - name: Run tests
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_ENV: ${{ secrets.APP_ENV}}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          CACHE_DRIVER: ${{ secrets.CACHE_DRIVER }}
+          SESSION_DRIVER: ${{ secrets.SESSION_DRIVER }}
+          QUEUE_CONNECTION: ${{ secrets.QUEUE_CONNECTION }}
+          MAIL_MAILER: ${{ secrets.MAIL_MAILER }}
         run: php artisan test
 
   run-migrations:
