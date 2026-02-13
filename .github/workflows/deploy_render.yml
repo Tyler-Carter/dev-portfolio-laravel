@@ -54,22 +54,70 @@ jobs:
           RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
         run: |
           set -euo pipefail
-          echo "Waiting for latest Render deploy to finish..."
+
+          : "${RENDER_API_KEY:?Missing RENDER_API_KEY}"
+          : "${RENDER_SERVICE_ID:?Missing RENDER_SERVICE_ID}"
+
+          api="https://api.render.com/v1"
+          hdr=(-H "Accept: application/json" -H "Authorization: Bearer $RENDER_API_KEY")
+
+          echo "Fetching latest deploy for service: $RENDER_SERVICE_ID"
+
+          # List deploys (no ?limit=1). Pick the newest by createdAt.
+          deploys_json="$(curl -sS "${hdr[@]}" "$api/services/$RENDER_SERVICE_ID/deploys")"
+
+          deploy_id="$(
+            echo "$deploys_json" \
+              | jq -r 'sort_by(.createdAt) | reverse | .[0].id // empty'
+          )"
+
+          if [ -z "$deploy_id" ]; then
+            echo "No deploys returned for service $RENDER_SERVICE_ID. Raw response:" >&2
+            echo "$deploys_json" >&2
+            exit 1
+          fi
+
+          echo "Latest deploy id: $deploy_id"
+          echo "Polling deploy status..."
+
+          # Hard timeout (seconds)
+          timeout_s=1800
+          sleep_s=10
+          deadline=$(( $(date +%s) + timeout_s ))
+
           while true; do
-            resp=$(curl -fsS \
-              -H "Authorization: Bearer $RENDER_API_KEY" \
-              "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys?limit=1")
-            status=$(echo "$resp" | jq -r '.[0].status')
-            if [ "$status" = "live" ]; then
-              echo "Render deploy is live."
-              break
-            fi
-            if [ "$status" = "failed" ] || [ "$status" = "canceled" ]; then
-              echo "Render deploy failed/canceled." >&2
+            if [ "$(date +%s)" -ge "$deadline" ]; then
+              echo "Timed out after ${timeout_s}s waiting for deploy $deploy_id" >&2
               exit 1
             fi
-            echo "Current status: $status; waiting..."
-            sleep 10
+
+            deploy_json="$(curl -sS "${hdr[@]}" "$api/services/$RENDER_SERVICE_ID/deploys/$deploy_id")"
+            status="$(echo "$deploy_json" | jq -r '.status // empty')"
+
+            if [ -z "$status" ]; then
+              echo "Could not read .status from deploy payload. Payload:" >&2
+              echo "$deploy_json" >&2
+              exit 1
+            fi
+
+            # Success
+            if [ "$status" = "live" ]; then
+              echo "Deploy is live."
+              exit 0
+            fi
+
+            # Failure terminal states
+            case "$status" in
+              failed|canceled|cancelled)
+                echo "Deploy ended with status: $status" >&2
+                echo "$deploy_json" >&2
+                exit 1
+                ;;
+            esac
+
+            # Non-terminal states (keep waiting)
+            echo "Current status: $status; waiting ${sleep_s}s..."
+            sleep "$sleep_s"
           done
 
       - name: Run Render one-off job migrations
