@@ -26,7 +26,7 @@ COPY postcss.config.* ./
 COPY tailwind.config.* ./
 COPY babel.config.* ./
 COPY .babelrc* ./
-COPY ./render_run_migrations_job.sh
+COPY ./render_run_migrations_job.sh ./
 
 # Build assets (Mix or Vite)
 RUN if [ -f vite.config.js ] || [ -f vite.config.ts ]; then npm run build; else npm run prod; fi
