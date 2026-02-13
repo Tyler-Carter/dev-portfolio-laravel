@@ -38,7 +38,7 @@ AUTH_HEADER="Authorization: Bearer ${RENDER_API_KEY}"
 # IMPORTANT:
 # - Do NOT override DB_URL here.
 # - Rely on the base service env var DATABASE_URL that you confirmed is set in Render.
-START_COMMAND=$'sh -lc \'cd /var/www/html && php artisan migrate --force\''
+START_COMMAND="php /var/www/html/artisan migrate --force"
 
 CREATE_BODY="$(jq -n --arg startCommand "$START_COMMAND" '
   {startCommand: $startCommand}
