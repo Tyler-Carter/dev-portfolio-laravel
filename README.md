@@ -1,3 +1,30 @@
+## CI/CD Pipeline Architecture
+### CI/CD
+GitHub push to main<br>
+&emsp;&emsp;&emsp;&emsp;↓<br>
+GitHub Actions: CI (tests/build/lint)<br>
+&emsp;&emsp;&emsp;&emsp;↓ (status checks pass)<br>
+Render auto-deploys Docker image<br>
+&emsp;&emsp;&emsp;&emsp;↓<br>
+Render runs container<br>
+&emsp;&emsp;&emsp;&emsp;↓<br>
+Separate Render Job runs migrations (one-shot)
+
+### Preview/PR Flow
+Pull request opened<br>
+&emsp;&emsp;&emsp;&emsp;↓<br>
+GitHub Actions: CI<br>
+&emsp;&emsp;&emsp;&emsp;↓<br>
+Render PR Preview Environment builds image<br>
+&emsp;&emsp;&emsp;&emsp;↓<br>
+Preview service runs (no migrations, no seeding)
+
+#### Notes
+* Render is the **only deploy orchestrator.**
+* GitHub Actions is CI only.
+* Migrations are executed after the image is built.
+* Seeding is explicit and one-time, not automatic.
+
 ## Docker Dev workflow
 
 **Build + start dev stack**
