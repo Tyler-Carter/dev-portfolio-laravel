@@ -30,18 +30,6 @@ jobs:
         run: |
           true
 
-      - name: Run tests
-        env:
-          APP_KEY: ${{ secrets.APP_KEY }}
-          APP_ENV: ${{ secrets.APP_ENV}}
-          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          CACHE_DRIVER: ${{ secrets.CACHE_DRIVER }}
-          SESSION_DRIVER: ${{ secrets.SESSION_DRIVER }}
-          QUEUE_CONNECTION: ${{ secrets.QUEUE_CONNECTION }}
-          MAIL_MAILER: ${{ secrets.MAIL_MAILER }}
-        run: php artisan test
-
   run-migrations:
     name: Run Render Migrations (post-CI; no deploy hook)
     runs-on: ubuntu-latest
