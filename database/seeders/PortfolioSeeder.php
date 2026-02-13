@@ -679,7 +679,7 @@ class PortfolioSeeder extends Seeder
                 //visitor table seed
                 foreach (range(1, 72) as $index) {
                     $data = [
-                        'tracking_id' => null
+                        'tracking_id' => null,
                         'is_new' => null,
                         'ip' => null,
                         'is_desktop' => null,
