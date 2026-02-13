@@ -62,13 +62,12 @@ jobs:
           hdr=(-H "Accept: application/json" -H "Authorization: Bearer $RENDER_API_KEY")
 
           echo "Fetching latest deploy for service: $RENDER_SERVICE_ID"
-
-          # List deploys (no ?limit=1). Pick the newest by createdAt.
           deploys_json="$(curl -sS "${hdr[@]}" "$api/services/$RENDER_SERVICE_ID/deploys")"
 
+          # Items are { deploy: {...}, cursor: "..." }
           deploy_id="$(
             echo "$deploys_json" \
-              | jq -r 'sort_by(.createdAt) | reverse | .[0].id // empty'
+              | jq -r 'sort_by(.deploy.createdAt) | reverse | .[0].deploy.id // empty'
           )"
 
           if [ -z "$deploy_id" ]; then
@@ -78,9 +77,7 @@ jobs:
           fi
 
           echo "Latest deploy id: $deploy_id"
-          echo "Polling deploy status..."
 
-          # Hard timeout (seconds)
           timeout_s=1800
           sleep_s=10
           deadline=$(( $(date +%s) + timeout_s ))
@@ -91,34 +88,36 @@ jobs:
               exit 1
             fi
 
-            deploy_json="$(curl -sS "${hdr[@]}" "$api/services/$RENDER_SERVICE_ID/deploys/$deploy_id")"
-            status="$(echo "$deploy_json" | jq -r '.status // empty')"
+            # Re-list and find the deploy by id (avoids endpoint-shape differences)
+            deploys_json="$(curl -sS "${hdr[@]}" "$api/services/$RENDER_SERVICE_ID/deploys")"
+            status="$(
+              echo "$deploys_json" \
+                | jq -r --arg id "$deploy_id" '.[] | select(.deploy.id == $id) | .deploy.status' \
+                | head -n 1
+            )"
 
-            if [ -z "$status" ]; then
-              echo "Could not read .status from deploy payload. Payload:" >&2
-              echo "$deploy_json" >&2
+            if [ -z "${status:-}" ] || [ "$status" = "null" ]; then
+              echo "Could not find deploy $deploy_id in deploy list. Raw response:" >&2
+              echo "$deploys_json" >&2
               exit 1
             fi
 
-            # Success
             if [ "$status" = "live" ]; then
               echo "Deploy is live."
               exit 0
             fi
 
-            # Failure terminal states
             case "$status" in
-              failed|canceled|cancelled)
+              failed|canceled|cancelled|deactivated)
                 echo "Deploy ended with status: $status" >&2
-                echo "$deploy_json" >&2
                 exit 1
                 ;;
             esac
 
-            # Non-terminal states (keep waiting)
             echo "Current status: $status; waiting ${sleep_s}s..."
             sleep "$sleep_s"
           done
+
 
       - name: Run Render one-off job migrations
         env:
