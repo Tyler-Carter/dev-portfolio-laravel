@@ -6,8 +6,27 @@
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "prod": "mix --production",
+
+        "docker:seed:db": "php artisan migrate --seed",
+        "docker:dev:build": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml build",
+        "docker:dev:up": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml up -d",
+        "docker:dev:down": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml down -v",
+        "docker:dev:logs": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml logs -f",
+        "docker:dev:shell": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml exec laravel.test bash",
+
+        "docker:prod:build": "docker compose --env-file ./.env -f docker/docker-compose/prod-docker-compose.yml build",
+        "docker:prod:up": "docker compose --env-file ./.env -f docker/docker-compose/prod-docker-compose.yml up -d",
+        "docker:prod:down": "docker compose --env-file ./.env -f docker/docker-compose/prod-docker-compose.yml down",
+        "docker:prod:logs": "docker compose --env-file ./.env -f docker/docker-compose/prod-docker-compose.yml logs -f",
+
+        "docker:dev:reset": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml down -v && docker compose --env-file ./.env -f docker/docker-compose/prod-docker-compose.yml down -v",
+        "docker:prod:reset": "docker compose --env-file ./.env -f docker/docker-compose/dev-docker-compose.yml down -v && docker compose --env-file ./.env -f docker/docker-compose/prod-docker-compose.yml down -v",
+        "docker:prune": "docker system prune -f",
+
+        "docker:dev:artisan": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml exec laravel.test php artisan",
+        "docker:dev:composer": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml exec laravel.test composer",
+        "docker:dev:npm": "docker compose --env-file ./dev.env -f docker/docker-compose/dev-docker-compose.yml exec node npm"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.12.13",
@@ -19,15 +38,15 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "prop-types": "^15.7.2",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react": "17.0.2",
+        "react-dom": "17.0.2"
     },
     "dependencies": {
         "@ant-design/charts": "^1.1.2",
         "@ant-design/pro-layout": "^6.15.4",
         "@ant-design/pro-table": "^2.31.0",
         "@loadable/component": "^5.14.1",
-        "antd": "^4.15.0",
+        "antd": "4.15.0",
         "filepond": "^4.26.0",
         "filepond-plugin-file-encode": "^2.1.10",
         "filepond-plugin-file-validate-size": "^2.2.4",
@@ -43,10 +62,10 @@
         "react-filepond": "^7.1.1",
         "react-icons": "^4.2.0",
         "react-redux": "^7.2.3",
-        "react-router-dom": "^5.2.0",
+        "react-router-dom": "5.2.0",
         "reddit-image-fetcher": "^2.0.7",
         "redux": "^4.0.5",
-        "redux-thunk": "^2.3.0",
+        "redux-thunk": "2.3.0",
         "styled-components": "^5.2.1",
         "typed.js": "^2.0.12"
     }

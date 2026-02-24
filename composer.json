@@ -8,8 +8,9 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2.12",
+        "php": "^7.3|^8.0",
         "barryvdh/laravel-ide-helper": "^2.9",
+        "doctrine/instantiator": "^2.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -19,7 +20,7 @@
         "laravel/tinker": "^2.5",
         "rap2hpoutre/laravel-log-viewer": "^1.7",
         "stevebauman/location": "^6.1",
-        "symfony/mailer": "^6.1",
+        "symfony/css-selector": "^7.2",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
@@ -31,6 +32,9 @@
         "phpunit/phpunit": "^9.3.3"
     },
     "config": {
+        "platform": {
+            "php": "8.3.30"
+        },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true

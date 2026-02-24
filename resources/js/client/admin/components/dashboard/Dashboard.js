@@ -110,7 +110,7 @@ const Dashboard = () => {
             notification.open({
                 message: (
                     <div className="text-center">
-                        <a target="_blank" rel="noreferrer" href="https://github.com/arifszn/ezfolio">
+                        <a target="_blank" rel="noreferrer" href="https://github.com/Tyler-Carter/dev-portfolio-laravel">
                             <img src="https://img.shields.io/github/stars/arifszn/ezfolio?style=social" alt="Github Star"/>
                         </a>
                     </div>
@@ -118,7 +118,7 @@ const Dashboard = () => {
                 description: <React.Fragment>
                     <Space direction="vertical" size="middle">
                         <div className="text-center">
-                            Show your ❤️ and support by giving a ⭐️ on <a target="_blank" rel="noreferrer" href="https://github.com/arifszn/ezfolio">GitHub</a>.
+                            Show your ❤️ and support by giving a ⭐️ on <a target="_blank" rel="noreferrer" href="https://github.com/Tyler-Carter/dev-portfolio-laravel">GitHub</a>.
                         </div>
                         <div className="text-center">
                             <a href={Routes.web.frontend.home} target="_blank" rel="noreferrer">Visit Front Panel</a>
@@ -147,7 +147,7 @@ const Dashboard = () => {
     const loadData = (_loading = true) => {
         setLoading(_loading);
 
-        HTTP.get(Routes.api.admin.stats, {   
+        HTTP.get(Routes.api.admin.stats, {
             params: {
                 todayStartDate: todayStartDateUtc,
                 todayEndDate: todayEndDateUtc,
@@ -234,7 +234,7 @@ const Dashboard = () => {
     return (
         <React.Fragment>
             <Row gutter={24}>
-                <Col 
+                <Col
                     xl={24}
                     lg={24}
                     md={24}
@@ -242,7 +242,7 @@ const Dashboard = () => {
                     xs={24}
                 >
                     <Row gutter={24}>
-                        <Col 
+                        <Col
                             xl={6}
                             lg={6}
                             md={12}
@@ -250,16 +250,16 @@ const Dashboard = () => {
                             xs={24}
                             style={{marginBottom: 24}}
                         >
-                            <StatCard 
-                                link={Routes.web.admin.portfolioSkills} 
+                            <StatCard
+                                link={Routes.web.admin.portfolioSkills}
                                 loading={loading}
                                 icon={<Icon component={GoKeyboard}/>}
-                                color={colors.skill} 
-                                title='Skill' 
+                                color={colors.skill}
+                                title='Skill'
                                 number={skillData.total}
                             />
                         </Col>
-                        <Col 
+                        <Col
                             xl={6}
                             lg={6}
                             md={12}
@@ -267,16 +267,16 @@ const Dashboard = () => {
                             xs={24}
                             style={{marginBottom: 24}}
                         >
-                            <StatCard 
-                                link={Routes.web.admin.portfolioEducation} 
+                            <StatCard
+                                link={Routes.web.admin.portfolioEducation}
                                 loading={loading}
                                 icon={<Icon component={GiSecretBook}/>}
-                                color={colors.education} 
-                                title='Education' 
+                                color={colors.education}
+                                title='Education'
                                 number={educationData.total}
                             />
                         </Col>
-                        <Col 
+                        <Col
                             xl={6}
                             lg={6}
                             md={12}
@@ -284,16 +284,16 @@ const Dashboard = () => {
                             xs={24}
                             style={{marginBottom: 24}}
                         >
-                            <StatCard 
-                                link={Routes.web.admin.portfolioExperiences} 
+                            <StatCard
+                                link={Routes.web.admin.portfolioExperiences}
                                 loading={loading}
                                 icon={<Icon component={BsBriefcase}/>}
-                                color={colors.experience} 
-                                title='Experience' 
+                                color={colors.experience}
+                                title='Experience'
                                 number={experienceData.total}
                             />
                         </Col>
-                        <Col 
+                        <Col
                             xl={6}
                             lg={6}
                             md={12}
@@ -301,18 +301,18 @@ const Dashboard = () => {
                             xs={24}
                             style={{marginBottom: 24}}
                         >
-                            <StatCard 
-                                link={Routes.web.admin.portfolioProjects} 
+                            <StatCard
+                                link={Routes.web.admin.portfolioProjects}
                                 loading={loading}
                                 icon={<Icon component={BiArchive}/>}
-                                color={colors.project} 
-                                title='Project' 
+                                color={colors.project}
+                                title='Project'
                                 number={projectData.total}
                             />
                         </Col>
                     </Row>
                 </Col>
-                <Col 
+                <Col
                     xl={18}
                     lg={18}
                     md={24}
@@ -320,7 +320,7 @@ const Dashboard = () => {
                     xs={24}
                 >
                     <Row gutter={24}>
-                        <Col 
+                        <Col
                             xl={8}
                             lg={10}
                             md={12}
@@ -328,16 +328,16 @@ const Dashboard = () => {
                             xs={24}
                             style={{marginBottom: 24}}
                         >
-                            <StatCard 
-                                link={Routes.web.admin.portfolioServices} 
+                            <StatCard
+                                link={Routes.web.admin.portfolioServices}
                                 loading={loading}
                                 icon={<Icon component={RiServiceLine}/>}
-                                color={colors.service} 
-                                title='Service' 
+                                color={colors.service}
+                                title='Service'
                                 number={servicesData.total}
                             />
                         </Col>
-                        <Col 
+                        <Col
                             xl={16}
                             lg={14}
                             md={12}
@@ -394,8 +394,8 @@ const Dashboard = () => {
                                             isCard={false}
                                             loading={loading}
                                             icon={<Icon component={AiOutlineTeam}/>}
-                                            color={colors.visitor} 
-                                            title='Total' 
+                                            color={colors.visitor}
+                                            title='Total'
                                             number={visitorData.total}
                                         />
                                     </Col>
@@ -404,8 +404,8 @@ const Dashboard = () => {
                                             isCard={false}
                                             loading={loading}
                                             icon={<Icon component={AiOutlineTeam}/>}
-                                            color={colors.visitor} 
-                                            title='This Month' 
+                                            color={colors.visitor}
+                                            title='This Month'
                                             number={visitorData.thisMonth}
                                         />
                                     </Col>
@@ -414,8 +414,8 @@ const Dashboard = () => {
                                             isCard={false}
                                             loading={loading}
                                             icon={<Icon component={AiOutlineTeam}/>}
-                                            color={colors.visitor} 
-                                            title='This Week' 
+                                            color={colors.visitor}
+                                            title='This Week'
                                             number={visitorData.thisWeek}
                                         />
                                     </Col>
@@ -424,8 +424,8 @@ const Dashboard = () => {
                                             isCard={false}
                                             loading={loading}
                                             icon={<Icon component={AiOutlineTeam}/>}
-                                            color={colors.visitor} 
-                                            title='Today' 
+                                            color={colors.visitor}
+                                            title='Today'
                                             number={visitorData.today}
                                         />
                                     </Col>
@@ -458,8 +458,8 @@ const Dashboard = () => {
                                             isCard={false}
                                             loading={loading}
                                             icon={<Icon component={RiMessage3Line}/>}
-                                            color={colors.message} 
-                                            title='Total' 
+                                            color={colors.message}
+                                            title='Total'
                                             number={messageData.total}
                                         />
                                     </Col>
@@ -468,8 +468,8 @@ const Dashboard = () => {
                                             isCard={false}
                                             loading={loading}
                                             icon={<Icon component={RiMessage3Line}/>}
-                                            color={colors.message} 
-                                            title='This Month' 
+                                            color={colors.message}
+                                            title='This Month'
                                             number={messageData.thisMonth}
                                         />
                                     </Col>
@@ -478,8 +478,8 @@ const Dashboard = () => {
                                             isCard={false}
                                             loading={loading}
                                             icon={<Icon component={RiMessage3Line}/>}
-                                            color={colors.message} 
-                                            title='This Week' 
+                                            color={colors.message}
+                                            title='This Week'
                                             number={messageData.thisWeek}
                                         />
                                     </Col>
@@ -488,8 +488,8 @@ const Dashboard = () => {
                                             isCard={false}
                                             loading={loading}
                                             icon={<Icon component={RiMessage3Line}/>}
-                                            color={colors.message} 
-                                            title='Today' 
+                                            color={colors.message}
+                                            title='Today'
                                             number={messageData.today}
                                         />
                                     </Col>
@@ -498,7 +498,7 @@ const Dashboard = () => {
                         </Col>
                     </Row>
                 </Col>
-                <Col 
+                <Col
                     xl={6}
                     lg={6}
                     md={24}
@@ -577,7 +577,7 @@ const Dashboard = () => {
                                     ) : (
                                         <Spin><WallpaperLoading/></Spin>
                                     )
-                                    
+
                                 }
                             >
                                 <Card.Meta

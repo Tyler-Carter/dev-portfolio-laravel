@@ -6,11 +6,6 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 ======================================================== -->
 
-@php
-    $accentColor = $portfolioConfig['accentColor'];
-    $accentColorRGB = Utils::getRgbValue($accentColor);
-@endphp
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,32 +39,8 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/themes/rigel/css/custom.css') }}" rel="stylesheet">
-    <style>
-        :root {
-          --z-accent-color: {{$accentColor}};
-        }
-        .bg-primary, .progress-bar {
-            background-color: {{$accentColor.' !important'}};
-        }
+    <link href="{{ asset('assets/themes/rigel/css/custom.css') }}?v={{ filemtime(public_path('assets/themes/rigel/css/custom.css')) }}" rel="stylesheet">
 
-        a {
-            color: {{$accentColor}};
-        }
-
-        a:hover {
-            color: rgba({{$accentColorRGB}}, .7);
-        }
-
-        .form-control:focus {
-            border-color: rgba({{$accentColorRGB}}, .5) !important;
-            box-shadow: none;
-        }
-
-        .text-primary {
-            color: {{$accentColor.' !important'}};
-        }
-    </style>
 </head>
 
 <body>
@@ -104,6 +75,24 @@
                 @endif
             </ul>
         </nav><!-- .nav-menu -->
+
+        <!-- Theme toggle -->
+        <div class="nav-footer" aria-label="Theme toggle">
+            <div class="theme-toggle">
+                <i id="themeToggleIcon" class="bx bx-moon theme-toggle__icon" aria-hidden="true"></i>
+                <span class="theme-toggle__label">Theme</span>
+                <button
+                    id="themeToggle"
+                    type="button"
+                    class="ant-switch"
+                    role="switch"
+                    aria-checked="false"
+                    aria-label="Toggle theme"
+                >
+                    <span class="ant-switch-handle"></span>
+                </button>
+            </div>
+        </div>
     </header><!-- End Header -->
 
     <!-- ======= hero Section ======= -->
@@ -254,9 +243,9 @@
                     <h2>Projects</h2>
                 </div>
                 <div>
-                    <div 
-                        id="react-project-root" 
-                        data-accentcolor="{{$accentColor}}" 
+                    <div
+                        id="react-project-root"
+                        data-accentcolor="#044040"
                         data-demomode="{{$demoMode}}"
                     />
                     <div class="mb-5"></div>
@@ -421,7 +410,7 @@
     <script>
         $(function() {
             $('.lazy').lazy();
-            
+
             @if($about->taglines)
                 if ($('.typed').length) {
                     new Typed('.typed', {
@@ -494,7 +483,7 @@
                     });
                 }
             });
-            
+
             function showNotification(message = 'Something went wrong', type = 'error', sticky = false) {
                 iziToast.show({
                     title: '',
@@ -509,7 +498,7 @@
                     messageColor: type === 'success' ? '#00ffb8' : '#ffafb4',
                     icon: type === 'success' ? 'fas fa-check' : 'fas fa-times-circle'
                 });
-            }    
+            }
         });
     </script>
     @if (!empty($portfolioConfig['script']['footer']) && $portfolioConfig['script']['footer'] != '')

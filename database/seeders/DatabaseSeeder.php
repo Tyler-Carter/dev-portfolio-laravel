@@ -2,55 +2,71 @@
 
 namespace Database\Seeders;
 
-use Artisan;
-use DB;
 use Illuminate\Database\Seeder;
-use Log;
-use Schema;
-use Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      *
-     * @return void
+     * Notes:
+     * - Supports both MySQL and Postgres (Neon).
+     * - Does not silently swallow errors (so CI/Render will show failures).
+     * - Uses FK-safe truncation strategy per driver.
      */
-    public function run()
+    public function run(): void
     {
+        // Optional: clear log (keep, but don't block seeding if it fails)
         try {
-            try {
-                // clear log
-                file_put_contents(storage_path('logs/laravel.log'), '');
-            } catch (\Throwable $th) {
-                Log::error($th->getMessage());
-            }
+            @file_put_contents(storage_path('logs/laravel.log'), '');
+        } catch (\Throwable $th) {
+            Log::error('Failed to clear laravel.log', ['error' => $th->getMessage()]);
+        }
 
-            Artisan::call('key:generate');
-            Artisan::call('config:clear');
-            Artisan::call('cache:clear');
-            Artisan::call('view:clear');
+        $driver = DB::getDriverName();
 
-            if (!env('JWT_SECRET')) {
-                Artisan::call('jwt:secret');
-            }
-
-            DB::statement('SET FOREIGN_KEY_CHECKS=0');
-
-            // Truncate all tables, except migrations
+        try {
+            // Truncate all tables except migrations, in a way that works per driver
             $tables = Schema::getConnection()->getDoctrineSchemaManager()->listTableNames();
-            foreach ($tables as $table) {
-                if ($table !== 'migrations') {
-                    DB::table($table)->truncate();
+            $tables = array_values(array_filter($tables, static fn ($t) => $t !== 'migrations'));
+
+            if (!empty($tables)) {
+                if ($driver === 'pgsql') {
+                    // Postgres: truncate all tables with CASCADE, restart identities
+                    $quoted = implode(', ', array_map(static fn ($t) => '"' . $t . '"', $tables));
+                    DB::statement("TRUNCATE TABLE {$quoted} RESTART IDENTITY CASCADE");
+                } else {
+                    // MySQL: disable FK checks, truncate per table
+                    if ($driver === 'mysql') {
+                        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+                    }
+
+                    foreach ($tables as $table) {
+                        DB::table($table)->truncate();
+                    }
+
+                    if ($driver === 'mysql') {
+                        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+                    }
                 }
             }
 
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
-            $this->call(AdminSeeder::class);
-            $this->call(PortfolioSeeder::class);
+            $this->call([
+                AdminSeeder::class,
+                PortfolioSeeder::class,
+            ]);
         } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            Log::error('Database seeding failed', [
+                'driver' => $driver,
+                'error' => $th->getMessage(),
+                'trace' => $th->getTraceAsString(),
+            ]);
+
+            // Critical: rethrow so `php artisan db:seed` fails visibly instead of "success"
+            throw $th;
         }
     }
 }

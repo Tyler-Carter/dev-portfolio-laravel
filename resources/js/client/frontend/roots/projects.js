@@ -37,7 +37,7 @@ function App() {
             notification.open({
                 message: (
                     <div className="text-center">
-                        <a target="_blank" rel="noreferrer" href="https://github.com/arifszn/ezfolio">
+                        <a target="_blank" rel="noreferrer" href="https://github.com/Tyler-Carter/dev-portfolio-laravel">
                             <img src="https://img.shields.io/github/stars/arifszn/ezfolio?style=social" alt="Github Star"/>
                         </a>
                     </div>
@@ -45,7 +45,7 @@ function App() {
                 description: <React.Fragment>
                     <Space direction="vertical" size="middle">
                         <div className="text-center">
-                            Show your ❤️ and support by giving a ⭐️ on <a target="_blank" rel="noreferrer" href="https://github.com/arifszn/ezfolio">GitHub</a>.
+                            Show your ❤️ and support by giving a ⭐️ on <a target="_blank" rel="noreferrer" href="https://github.com/Tyler-Carter/dev-portfolio-laravel">GitHub</a>.
                         </div>
                         <div className="text-center">
                             <a href={Routes.web.admin.dashboard} target="_blank" rel="noreferrer">Visit Admin Panel</a>
@@ -118,7 +118,7 @@ function App() {
                         <Col span={24} className="text-center">
                             <Row justify='center' gutter={32}>
                                 {
-                                    data.filter(project => selectedCategory === null || (selectedCategory !== null && JSON.parse(project.categories).includes(selectedCategory))).map((item, index) => (
+                                    data.filter(project => selectedCategory === null || JSON.parse(project.categories).includes(selectedCategory)).map((item, index) => (
                                         <Col
                                             key={index}
                                             xl={6}
@@ -126,7 +126,7 @@ function App() {
                                             md={12}
                                             sm={24}
                                             xs={24}
-                                            data-aos="fade-up" 
+                                            data-aos="fade-up"
                                             data-aos-anchor-placement="top-bottom"
                                             style={{marginBottom: '24px'}}
                                         >
@@ -193,5 +193,5 @@ if (document.getElementById('react-project-root')) {
             <App />
         </React.StrictMode>,
         document.getElementById('react-project-root')
-    ); 
+    );
 }

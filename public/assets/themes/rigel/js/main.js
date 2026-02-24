@@ -1,9 +1,10 @@
 /**
-* Template Name: MyResume - v2.1.0
-* Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+ * Template Name: MyResume - v2.1.0
+ * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+ * Author: BootstrapMade.com
+ * License: https://bootstrapmade.com/license/
+ */
+
 !(function ($) {
     "use strict";
 
@@ -150,3 +151,135 @@
     });
 
 })(jQuery);
+/*
+let styleElement = document.createElement('style');
+document.head.appendChild(styleElement);
+
+let activeButton = null;
+let currentTheme = 'light'; // Assumes light is the default theme
+
+const injectCSS = (css) => {
+    styleElement.textContent = css;
+};
+
+const SWITCH = (button, animation) => {
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    button.setAttribute("aria-pressed", newTheme === 'dark');
+    document.documentElement.className = newTheme;
+    currentTheme = newTheme;
+    injectCSS(animation.css);
+};
+
+const updateButtonStates = () => {
+    document.querySelectorAll('.theme-toggle').forEach(btn => {
+        if (btn === activeButton) {
+            btn.disabled = false;
+            btn.setAttribute("aria-pressed", currentTheme === 'dark');
+        } else {
+            btn.disabled = currentTheme === 'dark';
+            btn.setAttribute("aria-pressed", "false");
+        }
+    });
+};
+
+const TOGGLE_THEME = (button, animation) => {
+    if (activeButton && activeButton !== button) {
+        return; // If there's an active button and it's not this one, do nothing.
+    }
+
+    if (!document.startViewTransition) {
+        SWITCH(button, animation);
+        activeButton = currentTheme === 'dark' ? button : null;
+        updateButtonStates();
+    } else {
+        const transition = document.startViewTransition(() => {
+            SWITCH(button, animation);
+            activeButton = currentTheme === 'dark' ? button : null;
+        });
+        transition.finished.then(() => {
+            updateButtonStates();
+        });
+    }
+};
+*/
+
+
+
+// Theme toggle (light/dark) — applies CSS variable theme in real time
+(() => {
+    const STORAGE_KEY = "theme"; // "light" | "dark"
+    const ROOT = document.documentElement;
+
+    function setSwitchUI(isDark) {
+        const btn = document.getElementById("themeToggle");
+        if (!btn) return;
+
+        // Visual state
+        btn.classList.toggle("ant-switch-checked", isDark);
+        btn.setAttribute("aria-checked", isDark ? "true" : "false");
+
+        // Ensure basic switch semantics (safe even if already present)
+        if (!btn.hasAttribute("role")) btn.setAttribute("role", "switch");
+        if (!btn.hasAttribute("tabindex")) btn.setAttribute("tabindex", "0");
+
+        // Optional icon flip (moon when dark, sun when light)
+        const icon = document.getElementById("themeToggleIcon");
+        if (icon) {
+            icon.classList.toggle("bx-moon", isDark);
+            icon.classList.toggle("bx-sun", !isDark);
+        }
+    }
+
+    function applyTheme(theme, { persist = true } = {}) {
+        const isDark = theme === "dark";
+
+        // CSS hook: styles.css defines [data-theme="dark"] variable overrides
+        if (isDark) ROOT.setAttribute("data-theme", "dark");
+        else ROOT.removeAttribute("data-theme");
+
+        setSwitchUI(isDark);
+
+        if (persist) {
+            try { localStorage.setItem(STORAGE_KEY, theme); } catch (_) {}
+        }
+    }
+
+    function getInitialTheme() {
+        try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored === "dark" || stored === "light") return stored;
+        } catch (_) {}
+
+        // Fall back to system preference
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+    }
+
+    function toggleTheme() {
+        const isDark = ROOT.getAttribute("data-theme") === "dark";
+        applyTheme(isDark ? "light" : "dark");
+    }
+
+    // Init on DOM ready (in case the toggle is rendered late in the page)
+    document.addEventListener("DOMContentLoaded", () => {
+        applyTheme(getInitialTheme(), { persist: false });
+
+        // Click + keyboard accessibility
+        document.addEventListener("click", (e) => {
+            const btn = e.target.closest("#themeToggle");
+            if (!btn) return;
+            toggleTheme();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            const btn = e.target.closest && e.target.closest("#themeToggle");
+            if (!btn) return;
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+    });
+})();
+
