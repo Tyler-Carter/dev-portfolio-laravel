@@ -34,5 +34,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('/', ['App\Http\Controllers\Frontend\FrontendController', 'index'])->name('frontend');
 Route::get('/pixel-tracker', ['App\Http\Controllers\Frontend\FrontendController', 'pixelTracker'])->name('pixel-tracker');
+Route::get('/download-cv', ['App\Http\Controllers\Frontend\FrontendController', 'downloadCV'])->name('frontend.cv.download');
 
 #endregion

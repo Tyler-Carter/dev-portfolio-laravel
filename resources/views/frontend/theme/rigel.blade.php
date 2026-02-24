@@ -102,7 +102,7 @@
             <p><span class="typed"></span></p>
             @if ($portfolioConfig['visibility']['cv'])
                 <div class="my-3">
-                    <a href="{{$about->cv}}" class="btn btn-light btn-sm" download>Download CV</a>
+                    <a href="{{ route('frontend.cv.download') }}" class="btn btn-light btn-sm" download>Download CV</a>
                 </div>
             @endif
             @if ($about->social_links)

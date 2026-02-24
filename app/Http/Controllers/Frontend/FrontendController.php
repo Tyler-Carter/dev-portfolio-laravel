@@ -10,6 +10,7 @@ use CoreConstants;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -82,5 +83,43 @@ class FrontendController extends Controller
         }
         header('Content-type: image/gif');
         echo base64_decode('R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+    }
+
+    /**
+     * Download the configured CV as a binary file.
+     *
+     * @return Response
+     */
+    public function downloadCV()
+    {
+        $data = $this->frontend->getAllData();
+        if ($data['status'] !== CoreConstants::STATUS_CODE_SUCCESS || empty($data['payload']['about'])) {
+            abort(404, 'CV file is not configured.');
+        }
+
+        $cvPath = $data['payload']['about']->cv ?? null;
+
+        if (empty($cvPath)) {
+            abort(404, 'CV file is not configured.');
+        }
+
+        $possiblePaths = [
+            public_path($cvPath),
+            base_path($cvPath),
+        ];
+
+        $absolutePath = null;
+        foreach ($possiblePaths as $path) {
+            if (is_file($path) && is_readable($path)) {
+                $absolutePath = $path;
+                break;
+            }
+        }
+
+        if ($absolutePath === null) {
+            abort(404, 'CV file could not be found.');
+        }
+
+        return response()->download($absolutePath, 'Tyler_Carter_Resume.'.pathinfo($absolutePath, PATHINFO_EXTENSION));
     }
 }
