@@ -41,7 +41,16 @@ class FrontendController extends Controller
         $data = $this->frontend->getAllData();
 
         if ($data['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
-            return view('errors.404');
+            $message = 'Unable to load portfolio data. Verify your database connection and run migrations/seeds.';
+
+            if (config('app.debug') && !empty($data['payload'])) {
+                $message .= ' Error: '.$data['payload'];
+            }
+
+            return view('errors.custom', [
+                'status' => CoreConstants::STATUS_CODE_ERROR,
+                'message' => $message,
+            ]);
         } else {
             $data = $data['payload'];
         }
