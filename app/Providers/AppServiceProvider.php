@@ -29,7 +29,6 @@ use App\Services\SkillService;
 use App\Services\VisitorService;
 use Config;
 use Illuminate\Support\ServiceProvider;
-use Schema;
 use Str;
 use URL;
 
@@ -70,7 +69,9 @@ class AppServiceProvider extends ServiceProvider
         if ((Config::get('app.url') !== 'http://localhost') && (Str::contains(Config::get('app.url'), 'https://'))) {
             URL::forceScheme('https');
         }
-        
-        Schema::defaultStringLength(191);
+
+        if (config('database.default') === 'mysql') {
+            \Schema::defaultStringLength(191);
+        }
     }
 }
