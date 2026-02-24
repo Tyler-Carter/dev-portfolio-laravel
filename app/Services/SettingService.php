@@ -185,7 +185,7 @@ class SettingService implements SettingInterface
             }
 
             //get site name
-            $data['siteName'] = DotenvEditor::getValue('APP_NAME');
+            $data['siteName'] = Config::get('app.name');
 
             //get logo
             $result = $this->getSettingByKey(CoreConstants::SETTING__LOGO, ['setting_value']);
@@ -237,7 +237,7 @@ class SettingService implements SettingInterface
 
             //get demo mode
             $data['demoMode'] = Config::get('custom.demo_mode');
-            
+
             return [
                 'message' => 'Settings are fetched successfully',
                 'payload' => $data,
@@ -274,7 +274,7 @@ class SettingService implements SettingInterface
                     'status' => CoreConstants::STATUS_CODE_BAD_REQUEST
                 ];
             }
-            
+
             if ($data['setting_key'] === CoreConstants::SETTING__SITE_NAME) {
                 $result = $this->updateSiteName($data['setting_value']);
             } else {
@@ -283,7 +283,7 @@ class SettingService implements SettingInterface
 
                 $result = $this->insertOrUpdate($newData);
             }
-            
+
             return $result;
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
@@ -353,7 +353,7 @@ class SettingService implements SettingInterface
             $extension = $file->extension() ? $file->extension() : 'png';
             $fileName = Str::random(10). '_'. time() .'.'. $extension;
             $pathName = 'assets/common/img/logo/';
-            
+
             if (!file_exists($pathName)) {
                 mkdir($pathName, 0777, true);
             }
@@ -479,7 +479,7 @@ class SettingService implements SettingInterface
             $extension = $file->extension() ? $file->extension() : 'png';
             $fileName = Str::random(10). '_'. time() .'.'. $extension;
             $pathName = 'assets/common/img/favicon/';
-            
+
             if (!file_exists($pathName)) {
                 mkdir($pathName, 0777, true);
             }
@@ -604,7 +604,7 @@ class SettingService implements SettingInterface
                     'status' => CoreConstants::STATUS_CODE_BAD_REQUEST
                 ];
             }
-            
+
             $file = DotenvEditor::setKey('MAIL_MAILER', $data['MAIL_MAILER']);
             $file = DotenvEditor::setKey('MAIL_HOST', $data['MAIL_HOST']);
             $file = DotenvEditor::setKey('MAIL_PORT', $data['MAIL_PORT']);
