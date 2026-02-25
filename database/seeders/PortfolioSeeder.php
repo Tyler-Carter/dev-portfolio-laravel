@@ -286,8 +286,8 @@ class PortfolioSeeder extends Seeder
                     'email' => 'gtc198@gmail.com',
                     'avatar' => 'assets/common/img/avatar/old_photo.png',
                     'cover' => 'assets/common/img/cover/default.png',
-                    'phone' => '18587316249',
-                    'address' => '17430 Ambaum Blvd S., Burien, WA 98148',
+                    'phone' => '+1 858.731.6249',
+                    'address' => 'Seattle, WA',
                     'description' => 'I’m a data analyst and automation-focused developer based in Seattle. I help teams clean up data, automate reporting, and handle text-heavy workflows using Python, SQL, and practical AI tools. My work focuses on building systems that reduce repetitive work and are meant to be used in production.',
                     'taglines' => ["Data Analysis.", "Automation.", "Practical AI Support."],
                     'social_links' => [
