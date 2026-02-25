@@ -600,23 +600,38 @@ class PortfolioSeeder extends Seeder
                 $project->store($data);
 
                 $data = [
-                    'title' => 'Demo Project 2',
+                    'title' => 'Developer Portfolio',
                     'categories' => ['professional'],
-                    'link' => 'https://www.facebook.com',
-                    'details' => '',
-                    'seeder_thumbnail' => 'assets/common/img/projects/demo_project_2_1.png',
+                    'link' => 'https://tylercarter.dev',
+                    'details' => 'A production-ready, full-stack portfolio platform designed to showcase a developer's brand, capture inbound opportunities, and provide an authenticated admin workspace for content and site management.',
+                    'seeder_thumbnail' => 'assets/common/img/projects/project_2_1.png',
                     'seeder_images' => [
-                        'assets/common/img/projects/demo_project_2_1.png',
-                        'assets/common/img/projects/demo_project_2_2.png'
+                        'assets/common/img/projects/project_2_2.png',
+                        'assets/common/img/projects/project_2_3.png'
+                        'assets/common/img/projects/project_2_4.png'
+                        'assets/common/img/projects/project_2_5.png'
+                        'assets/common/img/projects/project_2_6.png'
+                        'assets/common/img/projects/project_2_7.png'
                     ]
                 ];
 
                 if (is_dir('public/assets/common/default/projects')) {
-                    copy('public/assets/common/default/projects/demo_project_2_1.png', $dir.'/demo_project_2_1.png');
-                    copy('public/assets/common/default/projects/demo_project_2_2.png', $dir.'/demo_project_2_2.png');
+                    copy('public/assets/common/default/projects/project_2_1.png', $dir.'/project_2_1.png');
+                    copy('public/assets/common/default/projects/project_2_2.png', $dir.'/project_2_2.png');
+                    copy('public/assets/common/default/projects/project_2_3.png', $dir.'/project_2_3.png');
+                    copy('public/assets/common/default/projects/project_2_4.png', $dir.'/project_2_4.png');
+                    copy('public/assets/common/default/projects/project_2_5.png', $dir.'/project_2_5.png');
+                    copy('public/assets/common/default/projects/project_2_6.png', $dir.'/project_2_6.png');
+                    copy('public/assets/common/default/projects/project_2_7.png', $dir.'/project_2_7.png');
                 } else {
-                    copy('assets/common/default/projects/demo_project_2_1.png', $dir.'/demo_project_2_1.png');
-                    copy('assets/common/default/projects/demo_project_2_2.png', $dir.'/demo_project_2_2.png');
+                    copy('assets/common/default/projects/project_2_1.png', $dir.'/project_2_1.png');
+                    copy('assets/common/default/projects/project_2_2.png', $dir.'/project_2_2.png');
+                    copy('assets/common/default/projects/project_2_3.png', $dir.'/project_2_3.png');
+                    copy('assets/common/default/projects/project_2_4.png', $dir.'/project_2_4.png');
+                    copy('assets/common/default/projects/project_2_5.png', $dir.'/project_2_5.png');
+                    copy('assets/common/default/projects/project_2_6.png', $dir.'/project_2_6.png');
+                    copy('assets/common/default/projects/project_2_7.png', $dir.'/project_2_7.png');
+
                 }
 
                 $project->store($data);

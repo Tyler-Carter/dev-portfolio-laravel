@@ -170,26 +170,22 @@ This pattern separates **build/deploy** from **schema change execution**, improv
 
 ## Screenshots
 ### Public Landing Page
-![Public Landing Page Screenshot Placeholder](docs/screenshots/public-landing.png)
+![Public Landing Page Screenshot](public/assets/common/default/projects/project_2_2.png)
 
 ### Admin Dashboard
-![Admin Dashboard Screenshot Placeholder](docs/screenshots/admin-dashboard.png)
+![Admin Dashboard Screenshot](public/assets/common/default/projects/project_2_3.png)
 
 ### Projects Management UI
-![Projects Management Screenshot Placeholder](docs/screenshots/projects-management-ui.png)
+![Projects Management Screenshot](public/assets/common/default/projects/project_2_4.png)
 
-### Mobile Responsive View
-![Mobile Responsive Screenshot Placeholder](docs/screenshots/mobile-responsive-placeholder.png)
+### Admin About Management
+![Admin Dashboard About Page Management](public/assets/common/default/projects/project_2_5.png)
 
----
+### Admin Visitor Metrics
+![Admin Dashboard Visitor Metrics Page](public/assets/common/default/projects/project_2_6.png)
 
-## Suggested “Demo Script” for interviews
-
-1. Open the public site and explain personal branding content strategy.
-2. Submit a contact message and show where it is managed in admin.
-3. Log into admin and walk through CRUD for projects and skills.
-4. Explain JWT authentication and route protection.
-5. Close by outlining CI/CD and post-deploy migration design decisions.
+### Admin Settings Page
+![Admin Dashboard Settings Page](public/assets/common/default/projects/project_2_7.png)
 
 ---
 
