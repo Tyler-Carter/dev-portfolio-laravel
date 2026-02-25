@@ -173,10 +173,10 @@ This pattern separates **build/deploy** from **schema change execution**, improv
 ![Public Landing Page Screenshot Placeholder](docs/screenshots/public-landing.png)
 
 ### Admin Dashboard
-![Admin Dashboard Screenshot Placeholder](docs/screenshots/admin-dashboard-placeholder.png)
+![Admin Dashboard Screenshot Placeholder](docs/screenshots/admin-dashboard.png)
 
 ### Projects Management UI
-![Projects Management Screenshot Placeholder](docs/screenshots/projects-management-placeholder.png)
+![Projects Management Screenshot Placeholder](docs/screenshots/projects-management-ui.png)
 
 ### Mobile Responsive View
 ![Mobile Responsive Screenshot Placeholder](docs/screenshots/mobile-responsive-placeholder.png)

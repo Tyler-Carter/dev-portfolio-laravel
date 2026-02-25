@@ -39,7 +39,7 @@ class AdminSeeder extends Seeder
                     try {
                         $settingService = resolve(SettingInterface::class);
                         //site name
-                        $file = DotenvEditor::setKey('APP_NAME', 'Ezfolio');
+                        $file = DotenvEditor::setKey('APP_NAME', 'Tyler's Dev Portfolio');
                         $file = DotenvEditor::save();
 
                         //accent color
@@ -90,7 +90,7 @@ class AdminSeeder extends Seeder
                                 $dir = 'assets/common/img/logo';
                             }
                             $leave_files = array('.gitkeep');
-                            
+
                             foreach (glob("$dir/*") as $file) {
                                 if (!in_array(basename($file), $leave_files)) {
                                     unlink($file);
@@ -121,7 +121,7 @@ class AdminSeeder extends Seeder
                                 $dir = 'assets/common/img/favicon';
                             }
                             $leave_files = array('.gitkeep');
-                            
+
                             foreach (glob("$dir/*") as $file) {
                                 if (!in_array(basename($file), $leave_files)) {
                                     unlink($file);
@@ -136,7 +136,7 @@ class AdminSeeder extends Seeder
                         } catch (\Throwable $th) {
                             Log::error($th->getMessage());
                         }
-                        
+
                         $data = [
                             'setting_key' => CoreConstants::SETTING__FAVICON,
                             'setting_value' => 'assets/common/img/favicon/default.png',
