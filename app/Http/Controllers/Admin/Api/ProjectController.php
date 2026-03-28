@@ -74,7 +74,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $result = $this->project->store($request->all());
+        $data = array_merge($request->all(), ['id' => $id]);
+        $result = $this->project->store($data);
 
         return response()->json($result, !empty($result['status']) ? $result['status'] : CoreConstants::STATUS_CODE_SUCCESS);
     }
