@@ -607,10 +607,10 @@ class PortfolioSeeder extends Seeder
                     'seeder_thumbnail' => 'assets/common/img/projects/project_2_1.png',
                     'seeder_images' => [
                         'assets/common/img/projects/project_2_2.png',
-                        'assets/common/img/projects/project_2_3.png'
-                        'assets/common/img/projects/project_2_4.png'
-                        'assets/common/img/projects/project_2_5.png'
-                        'assets/common/img/projects/project_2_6.png'
+                        'assets/common/img/projects/project_2_3.png',
+                        'assets/common/img/projects/project_2_4.png',
+                        'assets/common/img/projects/project_2_5.png',
+                        'assets/common/img/projects/project_2_6.png',
                         'assets/common/img/projects/project_2_7.png'
                     ]
                 ];
